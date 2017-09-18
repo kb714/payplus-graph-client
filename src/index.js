@@ -1,8 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import AppComponent from './app';
+import { store } from './store';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class InitConfigComponent extends React.Component
+{
+    render()
+    {
+        return(
+            <div>
+                <AppComponent />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<InitConfigComponent />, document.getElementById('payplus-root'));
+
 registerServiceWorker();
