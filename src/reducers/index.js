@@ -1,4 +1,8 @@
-export function TodoReducer(state = {}, action)
+const INITIAL_STATE = {
+    "login": false
+};
+
+export function sessionReducer(state = INITIAL_STATE, action)
 {
     switch(action.type)
     {
