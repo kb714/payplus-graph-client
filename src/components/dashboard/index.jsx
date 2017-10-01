@@ -1,9 +1,10 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 // Components
-import TopNavigationComponent from "./topNavigationComponent";
-import LateralNavigationComponent from "./lateralNavigationComponent";
+import TopNavigationComponent from './topNavigation';
+import LateralNavigationComponent from './lateralNavigation';
+import ContentSectionComponent from './contentSection';
 
 class DashboardComponent extends React.Component
 {
@@ -13,6 +14,7 @@ class DashboardComponent extends React.Component
             <div>
                 <TopNavigationComponent />
                 <LateralNavigationComponent />
+                <ContentSectionComponent />
             </div>
         );
     }

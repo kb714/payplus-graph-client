@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 // UI
 import { Avatar, Button, Card } from 'antd';
 // style
-import './lateralNavigationStyle.css';
+import './index.css';
 
 class LateralNavigationComponent extends React.Component
 {

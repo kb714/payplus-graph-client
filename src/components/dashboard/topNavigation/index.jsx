@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {withRouter, Link} from 'react-router-dom';
 // UI
-import { Row, Col, Avatar, Dropdown, Menu, Button } from 'antd';
+import {Row, Col, Avatar, Dropdown, Menu, Button} from 'antd';
 // style
-import './topNavigationStyle.css';
+import './index.css';
 
 class TopNavigationComponent extends React.Component
 {
@@ -37,8 +37,11 @@ class TopNavigationComponent extends React.Component
         );
 
         return(
-            <div id="top-navigation-component">
-                <div className="session-container">
+            <div>
+                <div id="top-navigation-component">
+
+                </div>
+                <div id="session-container-component">
                     <Dropdown overlay={userMenu}>
                         <a style={userLinkStyle} href="" onClick={(e) => {e.preventDefault()}}>
                             <Avatar style={avatarStyle}>Julito</Avatar> Julito Perez

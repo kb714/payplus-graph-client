@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link, withRouter} from 'react-router-dom';
 //UI
-import { Card } from 'antd';
+import {Card} from 'antd';
 
 class SignInComponent extends React.Component
 {
-    render()
+    static render()
     {
         return(
             <div>

@@ -1,0 +1,18 @@
+#top-navigation-component {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 220px;
+  height: 60px;
+  background-color: darken(#D32F2F, 10);
+}
+
+#session-container-component {
+  background-color: #D32F2F;
+  position: absolute;
+  width: 220px;
+  height: 60px;
+  right: 0;
+  color: #ffffff;
+  padding: 15px;
+}
