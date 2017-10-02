@@ -10,13 +10,11 @@ class DashboardComponent extends React.Component
 {
     render()
     {
-        return(
-            <div>
-                <TopNavigationComponent />
-                <LateralNavigationComponent />
-                <ContentSectionComponent />
-            </div>
-        );
+        return[
+            <TopNavigationComponent key={1}/>,
+            <LateralNavigationComponent key={2}/>,
+            <ContentSectionComponent key={3}/>
+        ];
     }
 }
 

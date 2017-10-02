@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 // UI
-import {Row, Col, Avatar, Dropdown, Menu, Button} from 'antd';
+import {Row, Col, Avatar, Button, Tooltip, Badge, Popover} from 'antd';
 // style
 import './index.css';
 
@@ -10,45 +10,44 @@ class TopNavigationComponent extends React.Component
 {
     render()
     {
-        const avatarStyle = {
-            verticalAlign: "middle",
-            marginRight: "10px",
-            backgroundColor: "#FFFFFF",
-            color: "#D32F2F"
-        };
-
-        const userLinkStyle = {
-            color: "#FFFFFF",
-            width: "100%"
-        };
-
-        const userMenu = (
-            <Menu>
-                <Menu.Item>
-                    <Link to="">Perfil</Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link to="">Seguridad</Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link to="">Desconectar</Link>
-                </Menu.Item>
-            </Menu>
+        const m_topSizeStyle = {height: "60px", padding: "0 30px", margin: 0};
+        const m_logoPayPlusStyle = {backgroundColor: "#f04134"};
+        const m_notificationContent = (
+            <div>
+                <ul>
+                    <li>Notificación 1</li>
+                    <li>Notificación 2</li>
+                    <li>Notificación 3</li>
+                    <li>Notificación 4</li>
+                    <li>Notificación 5</li>
+                </ul>
+            </div>
         );
 
         return(
-            <div>
-                <div id="top-navigation-component">
-
-                </div>
-                <div id="session-container-component">
-                    <Dropdown overlay={userMenu}>
-                        <a style={userLinkStyle} href="" onClick={(e) => {e.preventDefault()}}>
-                            <Avatar style={avatarStyle}>Julito</Avatar> Julito Perez
-                        </a>
-                    </Dropdown>
-                </div>
-            </div>
+            <Row id="top-navigation-component" gutter={16} type="flex" justify="space-between" align="middle" style={m_topSizeStyle}>
+                <Col span={6}>
+                    {/*<Avatar style={m_logoPayPlusStyle} size="large">PayPlus</Avatar>*/}
+                </Col>
+                <Col span={4} className="text-center">
+                    <Avatar style={m_logoPayPlusStyle} size="large">PayPlus</Avatar>
+                </Col>
+                <Col span={6} className="text-right">
+                    <Tooltip title="">
+                        <Popover content={m_notificationContent}>
+                            <Badge count={5}>
+                                <Button type="danger" shape="circle" icon="bell" size="large" />
+                            </Badge>
+                        </Popover>
+                    </Tooltip>
+                    <div className="user-name">
+                        Juanito Pérez
+                    </div>
+                    <Tooltip title="Desconectar">
+                        <Button type="danger" shape="circle" icon="logout" size="large" />
+                    </Tooltip>
+                </Col>
+            </Row>
         );
     }
 }

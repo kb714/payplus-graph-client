@@ -6,7 +6,7 @@ import {Card} from 'antd';
 
 class SignInComponent extends React.Component
 {
-    static render()
+    render()
     {
         return(
             <div>

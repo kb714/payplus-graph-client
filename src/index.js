@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import AppComponent from './app';
 // Reducers and Apollo
 import { ApolloProvider } from 'react-apollo';
 import { store, client } from './store';
+import './index.css';
 
 
 class InitConfigComponent extends React.Component

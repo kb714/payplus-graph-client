@@ -2,17 +2,25 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 220px;
-  height: 60px;
-  background-color: darken(#D32F2F, 10);
-}
-
-#session-container-component {
-  background-color: #D32F2F;
-  position: absolute;
-  width: 220px;
-  height: 60px;
   right: 0;
-  color: #ffffff;
-  padding: 15px;
+  //box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-bottom: 1px solid #E0E0E0;
+  z-index: 10;
+  background: #FFFFFF;
+  .user-name {
+    color: #757575;
+    border-left: 1px solid #E0E0E0;
+    padding: 10px 30px;
+    margin-left: 30px;
+    display: inline;
+    font-size: 16px;
+  }
+  .vertical-bar {
+    content: '-';
+    background: #757575;
+    display: inline;
+    margin: 0 15px;
+    height: 50px;
+    width: 2px;
+  }
 }
