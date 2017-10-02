@@ -1,12 +1,7 @@
-const INITIAL_STATE = {
-    "login": false
-};
+import session from './session';
+import dashboard from './dashboard';
 
-export function sessionReducer(state = INITIAL_STATE, action)
-{
-    switch(action.type)
-    {
-        default:
-            return state;
-    }
-}
+export const Reducers = {
+    session,
+    dashboard
+};

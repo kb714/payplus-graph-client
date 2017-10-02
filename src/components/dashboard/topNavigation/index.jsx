@@ -27,7 +27,9 @@ class TopNavigationComponent extends React.Component
         return(
             <Row id="top-navigation-component" gutter={16} type="flex" justify="space-between" align="middle" style={m_topSizeStyle}>
                 <Col span={6}>
-                    {/*<Avatar style={m_logoPayPlusStyle} size="large">PayPlus</Avatar>*/}
+                    <Tooltip title="Menu">
+                        <Button type="danger" shape="circle" icon="ellipsis" size="large" />
+                    </Tooltip>
                 </Col>
                 <Col span={4} className="text-center">
                     <Avatar style={m_logoPayPlusStyle} size="large">PayPlus</Avatar>
@@ -55,7 +57,8 @@ class TopNavigationComponent extends React.Component
 function mapStateToProps(state)
 {
     return {
-        session: state.session
+        session: state.session,
+        dashboard: state.dashboard
     };
 }
 

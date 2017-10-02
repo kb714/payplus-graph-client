@@ -12,7 +12,7 @@ class LateralNavigationComponent extends React.Component
     {
         return(
             <div id="lateral-navigation-component" className="text-center">
-                <Tooltip title="Nuevo comercio">
+                <Tooltip title="Nuevo comercio" placement="right">
                     <Button type="default" shape="circle" icon="plus-circle-o" size="large">{null}</Button>
                 </Tooltip>
             </div>
