@@ -5,15 +5,26 @@ import {withRouter} from 'react-router-dom';
 import TopNavigationComponent from './topNavigation';
 import LateralNavigationComponent from './lateralNavigation';
 import ContentSectionComponent from './contentSection';
+// dashboard actions
+import {dashboardActions} from '../../actions/dashboard';
 
 class DashboardComponent extends React.Component
 {
+    componentWillMount()
+    {
+        console.log(window.innerWidth);// TODO: delete this line
+        if(window.innerWidth > 1200)
+        {
+            this.props.openLateralNavigation();
+        }
+    }
+
     render()
     {
         return[
             <TopNavigationComponent key={1}/>,
-            <LateralNavigationComponent key={2}/>,
-            <ContentSectionComponent key={3}/>
+            <LateralNavigationComponent key={2} />,
+            <ContentSectionComponent key={4} />
         ];
     }
 }
@@ -21,8 +32,9 @@ class DashboardComponent extends React.Component
 function mapStateToProps(state)
 {
     return {
-        session: state.session
+        session: state.session,
+        dashboard: state.dashboard
     };
 }
 
-export default withRouter(connect(mapStateToProps, {  })(DashboardComponent));
+export default withRouter(connect(mapStateToProps, dashboardActions)(DashboardComponent));

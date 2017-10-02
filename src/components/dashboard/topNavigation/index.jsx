@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+// actions
+import {dashboardActions} from '../../../actions/dashboard';
 // UI
 import {Row, Col, Avatar, Button, Tooltip, Badge, Popover} from 'antd';
 // style
@@ -8,9 +10,15 @@ import './index.css';
 
 class TopNavigationComponent extends React.Component
 {
+    constructor()
+    {
+        super();
+        this.handleLateralNavigation = this.handleLateralNavigation.bind(this);
+    }
+
     render()
     {
-        const m_topSizeStyle = {height: "60px", padding: "0 30px", margin: 0};
+        const m_topSizeStyle = {height: "60px", padding: "0 16px", margin: 0};
         const m_logoPayPlusStyle = {backgroundColor: "#f04134"};
         const m_notificationContent = (
             <div>
@@ -23,12 +31,13 @@ class TopNavigationComponent extends React.Component
                 </ul>
             </div>
         );
+        const m_avatarStyle = {verticalAlign: "middle", marginRight: "15px"};
 
         return(
             <Row id="top-navigation-component" gutter={16} type="flex" justify="space-between" align="middle" style={m_topSizeStyle}>
                 <Col span={6}>
                     <Tooltip title="Menu">
-                        <Button type="danger" shape="circle" icon="ellipsis" size="large" />
+                        <Button type="danger" shape="circle" icon="ellipsis" size="large" onClick={this.handleLateralNavigation}/>
                     </Tooltip>
                 </Col>
                 <Col span={4} className="text-center">
@@ -43,6 +52,7 @@ class TopNavigationComponent extends React.Component
                         </Popover>
                     </Tooltip>
                     <div className="user-name">
+                        <Avatar style={m_avatarStyle}>JP</Avatar>
                         Juanito Pérez
                     </div>
                     <Tooltip title="Desconectar">
@@ -51,6 +61,19 @@ class TopNavigationComponent extends React.Component
                 </Col>
             </Row>
         );
+    }
+
+    handleLateralNavigation()
+    {
+        console.log(this.props.dashboard.lateral_navigation);
+        if(this.props.dashboard.lateral_navigation)
+        {
+            this.props.closeLateralNavigation();
+        }
+        else
+        {
+            this.props.openLateralNavigation();
+        }
     }
 }
 
@@ -62,4 +85,4 @@ function mapStateToProps(state)
     };
 }
 
-export default withRouter(connect(mapStateToProps, {  })(TopNavigationComponent));
+export default withRouter(connect(mapStateToProps, dashboardActions)(TopNavigationComponent));
