@@ -1,40 +1,48 @@
 import React from "react";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 // style constant
 import {STYLE_CONSTANT} from "../../../lib/style_const";
 // style
 import './index.css';
 // UI
-import {Row, Col, Spin, Button} from "antd";
+import {Spin} from "antd";
+// local components
+import HomeSectionComponent from './home';
+import AdvanceSectionComponent from './advance';
 
 class ContentSectionComponent extends React.Component
 {
     render()
     {
-        const m_lateralNavigationState = this.props.dashboard.lateralCollapsed;
         const m_contentStyle = {
-            left: (m_lateralNavigationState ?
-                STYLE_CONSTANT.LATERAL_MENU.SIZE.CLOSE :
-                STYLE_CONSTANT.LATERAL_MENU.SIZE.OPEN)};
+            left: (this.props.dashboard.lateralCollapsed ?
+                    STYLE_CONSTANT.LATERAL_MENU.SIZE.CLOSE :
+                    (
+                        // no close if width is less collapse limit
+                        window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT ?
+                            STYLE_CONSTANT.LATERAL_MENU.SIZE.CLOSE :
+                            STYLE_CONSTANT.LATERAL_MENU.SIZE.OPEN
+                    )
+            )};
 
         return(
             <div id="content-section-component" style={m_contentStyle}>
-                <Row type="flex" justify="space-around" align="middle" style={{height: "100%"}}>
-                    {
-                        this.props.dashboard.contentLoading ?
-                            <Spin /> :
-                            <Col span={24}>
-                                <div className="text-center initial-dashboard">
-                                    <h1>Bienvenido a PayPlus</h1>
-                                    <hr/>
-                                    Para comenzar cree su primer comercio
-                                    <br/>
-                                    <Button icon="plus-circle-o" shape="circle" type="danger"/>
-                                </div>
-                            </Col>
-                    }
-                </Row>
+                {
+                    this.props.dashboard.contentLoading ?
+                        <Spin /> :
+
+                        <Switch>
+                            <Route exact path={this.props.match.path}
+                                   component={HomeSectionComponent} />
+
+                            <Route path={this.props.match.path + "super-avance"}
+                                   component={AdvanceSectionComponent} />
+
+                            <Redirect to="/404" />
+
+                        </Switch>
+                }
             </div>
         );
     }

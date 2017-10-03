@@ -1,7 +1,8 @@
 import * as dashboardTypes from '../lib/action_types/dashboard';
+import {STYLE_CONSTANT} from "../lib/style_const/index";
 
 const INITIAL_STATE = {
-    lateralCollapsed: window.innerWidth <= 1200,
+    lateralCollapsed: window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT,
     contentLoading: false
 };
 

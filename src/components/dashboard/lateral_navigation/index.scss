@@ -1,12 +1,14 @@
 #lateral-navigation-component {
+  background: #ffffff;
   position: absolute;
   top: 60px;
   left: 0;
-  bottom: 0;
+  bottom: 40px;
   padding: 0 0;
   width: 80px;
   border-right: 1px solid #e0e0e0;
   transition: all linear 0.2s;
+  z-index: 10;
   .lateral-menu-open {
     background: #ffffff;
     color: #757575;
@@ -25,4 +27,28 @@
   .lateral-menu-close {
     margin-bottom: 15px;
   }
+}
+#black-helper {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  transition: background linear 0.4s;
+}
+#lateral-bottom-version {
+  background: #ffffff;
+  transition: all linear 0.2s;
+  position: absolute;
+  text-align: center;
+  font-size: 10px;
+  padding-top: 10px;
+  bottom: 0;
+  width: 80px;
+  height: 40px;
+  border-top:1px solid #e0e0e0;
+  border-right:1px solid #e0e0e0;
+  color: #757575;
+  z-index: 10;
 }

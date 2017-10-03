@@ -19,7 +19,6 @@ class TopNavigationComponent extends React.Component
     render()
     {
         const m_topSizeStyle = {height: "60px", padding: "0 10px", margin: 0};
-        const m_logoPayPlusStyle = {backgroundColor: "#f04134"};
         const m_notificationContent = (
             <div style={{padding: "15px"}}>
                 <ul>
@@ -35,15 +34,17 @@ class TopNavigationComponent extends React.Component
 
         return(
             <Row id="top-navigation-component" gutter={16} type="flex" justify="space-between" align="middle" style={m_topSizeStyle}>
-                <Col span={6}>
+                <Col xs={{span: 3}} sm={{span: 7}} md={{span: 6}} lg={{span: 7}} xl={{span: 6}}>
                     <Tooltip title="Menu">
                         <Button type="danger" shape="circle" icon="ellipsis" size="large" onClick={this.handleLateralNavigation}/>
                     </Tooltip>
                 </Col>
-                <Col span={4} className="text-center">
-                    <Avatar style={m_logoPayPlusStyle} size="large">PayPlus</Avatar>
+                <Col xs={{span: 6}} sm={{span: 2}} md={{span: 4}} lg={{span: 2}} xl={{span: 4}} className="logo-pp-container">
+                    <div className="logo">
+                        <span>Pay</span>Plus
+                    </div>
                 </Col>
-                <Col span={6} className="text-right">
+                <Col xs={{span: 11}} sm={{span: 7}} md={{span: 6}} lg={{span: 7}} xl={{span: 6}} className="text-right">
                     <Tooltip title="">
                         <Popover content={m_notificationContent}>
                             <Badge count={5}>
@@ -53,10 +54,10 @@ class TopNavigationComponent extends React.Component
                     </Tooltip>
                     <div className="user-name">
                         <Avatar style={m_avatarStyle}>JP</Avatar>
-                        Juanito Pérez
+                        <span className="text-name">Juanito Pérez</span>
                     </div>
                     <Tooltip title="Desconectar">
-                        <Button type="danger" shape="circle" icon="logout" size="large" />
+                        <Button className="logout-btn" type="danger" shape="circle" icon="logout" size="large" />
                     </Tooltip>
                 </Col>
             </Row>

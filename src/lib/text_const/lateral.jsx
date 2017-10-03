@@ -1,9 +1,9 @@
 const LATERAL = {
     NAVIGATION: [
-        {TEXT: "Mis comercios", ICON: "shop"},
-        {TEXT: "Super Avance", ICON: "credit-card"},
-        {TEXT: "Seguridad", ICON: "lock"},
-        {TEXT: "Configuración", ICON: "setting"}
+        {TEXT: "Mis comercios", ICON: "shop", URL: "/"},
+        {TEXT: "Super Avance", ICON: "credit-card", URL: "/super-avance"},
+        {TEXT: "Seguridad", ICON: "lock", URL: "/seguridad"},
+        {TEXT: "Configuración", ICON: "setting", URL: "/configuracion"}
     ]
 };
 

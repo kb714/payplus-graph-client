@@ -15,24 +15,30 @@ class DashboardComponent extends React.Component
     constructor()
     {
         super();
+        // set default state
         this.state = {
             m_currentLateralCollapse: window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT
         };
+        this.calculateLateralCollapsedState = this.calculateLateralCollapsedState.bind(this);
     }
 
     componentWillMount()
     {
+        // check first time
         this.calculateLateralCollapsedState();
-        window.addEventListener("resize", this.calculateLateralCollapsedState.bind(this));
+        // add event listener no check resize
+        window.addEventListener("resize", this.calculateLateralCollapsedState);
     }
 
     componentWillUnmount()
     {
-        window.removeEventListener("resize", this.calculateLateralCollapsedState.bind(this));
+        // remove event listener for check resize
+        window.removeEventListener("resize", this.calculateLateralCollapsedState);
     }
 
     calculateLateralCollapsedState()
     {
+        // check size and collapse or uncollapse lateral
         if(window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT)
         {
             if(this.state.m_currentLateralCollapse === this.props.dashboard.lateralCollapsed)
@@ -58,7 +64,7 @@ class DashboardComponent extends React.Component
         return[
             <TopNavigationComponent key={1}/>,
             <LateralNavigationComponent key={2} />,
-            <ContentSectionComponent key={4} />
+            <ContentSectionComponent key={4} />,
         ];
     }
 }

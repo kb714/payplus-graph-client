@@ -14,6 +14,19 @@
     margin-left: 30px;
     display: inline;
     font-size: 14px;
+      @media (max-width: 1200px) {
+        padding-right: 15px;
+        .text-name {
+          display: none;
+        }
+      }
+    @media (max-width: 767px) {
+      padding: 10px 0;
+      border-left: none;
+      margin-left: 10px;
+      margin-right: -5px;
+      text-align: center;
+    }
   }
   .vertical-bar {
     content: '-';
@@ -22,5 +35,35 @@
     margin: 0 15px;
     height: 50px;
     width: 2px;
+  }
+  .logo-pp-container {
+    text-align: center;
+    color: #404040;
+    .logo {
+      display: inline;
+      padding: 15px;
+      font-size: 21px;
+      font-weight: 500;
+      font-style: italic;
+      transition: all linear 0.2s;
+      border-bottom: 2px solid #ffbf00;
+      span {
+        font-weight: 700;
+        color: #f04134;
+
+      }
+      &:hover {
+        color: #f04134;
+      }
+    }
+    @media (max-width: 767px) {
+      .logo {
+        font-size: 16px;
+        padding: 18px;
+      }
+    }
+  }
+  .logout-btn {
+    top: 3px;
   }
 }
