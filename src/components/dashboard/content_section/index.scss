@@ -1,0 +1,25 @@
+#content-section-component {
+  position: absolute;
+  top: 60px;
+  left: 80px;
+  right: 0;
+  bottom: 0;
+  background: #f7f7f7;
+  transition: all linear 0.2s;
+  .main-loadable {
+    min-height: 100%;
+    width: 100%;
+    bottom: 0;
+    background: red;
+  }
+  .initial-dashboard {
+    h1 {
+      color: #757575;
+    }
+    hr {
+      color: #e0e0e0;
+      border-color: #e0e0e0;
+      background-color: #e0e0e0;
+    }
+  }
+}

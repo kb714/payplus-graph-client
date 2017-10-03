@@ -1,7 +1,8 @@
 const LATERAL_MENU = {
     SIZE: {
-        CLOSE: "80px",
-        OPEN: "208px"
+        CLOSE: "65px",
+        OPEN: "208px",
+        COLLAPSE_LIMIT: 1200
     }
 };
 

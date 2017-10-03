@@ -1,0 +1,28 @@
+#lateral-navigation-component {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  padding: 0 0;
+  width: 80px;
+  border-right: 1px solid #e0e0e0;
+  transition: all linear 0.2s;
+  .lateral-menu-open {
+    background: #ffffff;
+    color: #757575;
+    font-weight: 400;
+    width: 100%;
+    border: none;
+    border-right: 3px solid #ffffff;
+    text-align: left;
+    padding: 20px 0 35px 25px;
+    &:hover {
+      background: #fef0ef;
+      color: #f04134;
+      border-right: 3px solid #f04134;
+    }
+  }
+  .lateral-menu-close {
+    margin-bottom: 15px;
+  }
+}

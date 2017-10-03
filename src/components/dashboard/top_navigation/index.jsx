@@ -18,10 +18,10 @@ class TopNavigationComponent extends React.Component
 
     render()
     {
-        const m_topSizeStyle = {height: "60px", padding: "0 16px", margin: 0};
+        const m_topSizeStyle = {height: "60px", padding: "0 10px", margin: 0};
         const m_logoPayPlusStyle = {backgroundColor: "#f04134"};
         const m_notificationContent = (
-            <div>
+            <div style={{padding: "15px"}}>
                 <ul>
                     <li>Notificación 1</li>
                     <li>Notificación 2</li>
@@ -65,13 +65,13 @@ class TopNavigationComponent extends React.Component
 
     handleLateralNavigation()
     {
-        if(this.props.dashboard.lateralState)
+        if(this.props.dashboard.lateralCollapsed)
         {
-            this.props.closeLateralNavigation();
+            this.props.openLateralNavigation();
         }
         else
         {
-            this.props.openLateralNavigation();
+            this.props.closeLateralNavigation();
         }
     }
 }
