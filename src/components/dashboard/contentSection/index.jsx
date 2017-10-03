@@ -11,7 +11,7 @@ class ContentSectionComponent extends React.Component
 {
     render()
     {
-        const m_lateralNavigationState = this.props.dashboard.lateral_navigation;
+        const m_lateralNavigationState = this.props.dashboard.lateralState;
         const m_contentStyle = {
             left: (m_lateralNavigationState ? STYLE_CONSTANT.LATERAL_MENU.SIZE.OPEN : STYLE_CONSTANT.LATERAL_MENU.SIZE.CLOSE)};
         return(

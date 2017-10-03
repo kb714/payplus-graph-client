@@ -2,12 +2,12 @@ import * as dashboardTypes from '../lib/action_types/dashboard';
 
 function openLateralNavigation()
 {
-    return {type: dashboardTypes.OPEN_LATERAL_NAVIGATION, payload: true};
+    return {type: dashboardTypes.OPEN_LATERAL_NAV, payload: true};
 }
 
 function closeLateralNavigation()
 {
-    return {type: dashboardTypes.CLOSE_LATERAL_NAVIGATION, payload: false};
+    return {type: dashboardTypes.CLOSE_LATERAL_NAV, payload: false};
 }
 
 export const dashboardActions = {

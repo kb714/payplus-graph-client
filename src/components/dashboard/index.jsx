@@ -12,7 +12,7 @@ class DashboardComponent extends React.Component
 {
     componentWillMount()
     {
-        console.log(window.innerWidth);// TODO: delete this line
+        console.log(window.innerWidth); // TODO: delete this line
         if(window.innerWidth > 1200)
         {
             this.props.openLateralNavigation();

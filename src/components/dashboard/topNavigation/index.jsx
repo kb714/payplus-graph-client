@@ -65,8 +65,7 @@ class TopNavigationComponent extends React.Component
 
     handleLateralNavigation()
     {
-        console.log(this.props.dashboard.lateral_navigation);
-        if(this.props.dashboard.lateral_navigation)
+        if(this.props.dashboard.lateralState)
         {
             this.props.closeLateralNavigation();
         }
