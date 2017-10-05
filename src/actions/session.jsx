@@ -27,13 +27,18 @@ function fetchSignIn(data)
             })
             .catch((err) =>
             {
-                if(err.response.status === 401)
+                if (err.response)
                 {
                     dispatch(errorSignIn());
                 }
-                else
+                else if (err.request)
                 {
                     dispatch(errorNetwork());
+                }
+                else
+                {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', err.message);
                 }
             });
     }
