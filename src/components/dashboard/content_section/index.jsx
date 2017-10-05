@@ -7,9 +7,7 @@ import {STYLE_CONSTANT} from "../../../lib/style_const";
 import './index.css';
 // UI
 import {Spin} from "antd";
-// local components
-import HomeSectionComponent from './home';
-import AdvanceSectionComponent from './advance';
+import {ROUTES} from "../../../lib/routes";
 
 class ContentSectionComponent extends React.Component
 {
@@ -33,14 +31,14 @@ class ContentSectionComponent extends React.Component
                         <Spin /> :
 
                         <Switch>
-                            <Route exact path={this.props.match.path}
-                                   component={HomeSectionComponent} />
-
-                            <Route path={this.props.match.path + "super-avance"}
-                                   component={AdvanceSectionComponent} />
-
+                            {ROUTES.LATERAL.NAVIGATION.map((item) => {
+                                return <Route
+                                    key={item.url}
+                                    exact={item.exact}
+                                    path={item.url}
+                                    component={item.component} />
+                            })};
                             <Redirect to="/404" />
-
                         </Switch>
                 }
             </div>

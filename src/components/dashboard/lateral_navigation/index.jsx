@@ -5,12 +5,12 @@ import {withRouter} from "react-router-dom";
 import {dashboardActions} from "../../../actions/dashboard";
 // style constant
 import {STYLE_CONSTANT} from "../../../lib/style_const";
-// text constant
-import {TEXT_CONSTANT} from '../../../lib/text_const/lateral';
+// Routes
+import {ROUTES} from "../../../lib/routes";
 // UI
-import {Menu, Icon} from 'antd';
+import {Menu, Icon} from "antd";
 // style
-import './index.css';
+import "./index.css";
 
 class LateralNavigationComponent extends React.Component
 {
@@ -46,11 +46,11 @@ class LateralNavigationComponent extends React.Component
                       defaultSelectedKeys={[this.props.location.pathname]}
                       selectedKeys={[this.props.location.pathname]}
                       onClick={this.handleNavigation}>
-                    {TEXT_CONSTANT.LATERAL.NAVIGATION.map((item) => {
+                    {ROUTES.LATERAL.NAVIGATION.map((item) => {
                         return (
-                            <Menu.Item key={item.URL}>
-                                <Icon type={item.ICON}/>
-                                <span>{item.TEXT}</span>
+                            <Menu.Item key={item.url}>
+                                <Icon type={item.icon}/>
+                                <span>{item.text}</span>
                             </Menu.Item>);
                     })}
                 </Menu>

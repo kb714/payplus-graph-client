@@ -1,8 +1,10 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {Link, withRouter} from 'react-router-dom';
+import React from "react";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 //UI
 import {Card} from 'antd';
+// Form
+import WrapperSignInForm from "./form";
 
 class SignInComponent extends React.Component
 {
@@ -11,7 +13,7 @@ class SignInComponent extends React.Component
         return(
             <div>
                 <Card>
-                    Login component <Link to="/signup">Registro</Link>
+                    <WrapperSignInForm />
                 </Card>
             </div>
         );

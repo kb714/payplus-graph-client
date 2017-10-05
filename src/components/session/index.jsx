@@ -1,20 +1,20 @@
 import React from 'react';
 import {Col, Row} from "antd";
 import './index.css';
-
+import {connect} from "react-redux";
+// logo
+import logo from "./logo_payplus.png";
 export default function(ComposedComponent)
 {
     class SessionComponent extends React.Component
     {
-
-        state = {
-            isAuthenticated: false
-        };
-
         // Push to login route if not authenticated on mount
         componentWillMount()
         {
-
+            if(this.props.session.isAuthenticated && !this.props.isAuthenticating)
+            {
+                this.props.history.push("/");
+            }
         }
 
         // Push to login route if not authenticated on update
@@ -30,6 +30,9 @@ export default function(ComposedComponent)
                 <div id="session-wrapper">
                     <Row type="flex" justify="center">
                         <Col span={5}>
+                            <div className="text-center logo">
+                                <img src={logo} alt="Logo"/>
+                            </div>
                             <ComposedComponent {...this.props}/>
                         </Col>
                     </Row>
@@ -39,6 +42,13 @@ export default function(ComposedComponent)
 
     }
 
-    return SessionComponent
+    function mapStateToProps(state)
+    {
+        return {
+            session: state.session
+        };
+    }
+
+    return connect(mapStateToProps, {})(SessionComponent)
 
 }

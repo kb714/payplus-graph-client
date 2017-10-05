@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 // actions
 import {dashboardActions} from '../../../actions/dashboard';
+import {sessionActions} from "../../../actions/session";
 // UI
 import {Row, Col, Avatar, Button, Tooltip, Badge, Popover} from 'antd';
 // style
@@ -14,6 +15,7 @@ class TopNavigationComponent extends React.Component
     {
         super();
         this.handleLateralNavigation = this.handleLateralNavigation.bind(this);
+        this.handleSignOut = this.handleSignOut.bind(this);
     }
 
     render()
@@ -57,7 +59,7 @@ class TopNavigationComponent extends React.Component
                         <span className="text-name">Juanito Pérez</span>
                     </div>
                     <Tooltip title="Desconectar">
-                        <Button className="logout-btn" type="danger" shape="circle" icon="logout" size="large" />
+                        <Button className="logout-btn" type="danger" shape="circle" icon="logout" size="large" onClick={this.handleSignOut}/>
                     </Tooltip>
                 </Col>
             </Row>
@@ -75,6 +77,11 @@ class TopNavigationComponent extends React.Component
             this.props.closeLateralNavigation();
         }
     }
+
+    handleSignOut()
+    {
+        this.props.fetchSignOut();
+    }
 }
 
 function mapStateToProps(state)
@@ -85,4 +92,4 @@ function mapStateToProps(state)
     };
 }
 
-export default withRouter(connect(mapStateToProps, dashboardActions)(TopNavigationComponent));
+export default withRouter(connect(mapStateToProps, {...dashboardActions, ...sessionActions})(TopNavigationComponent));

@@ -6,15 +6,15 @@ import {Col, Row} from "antd";
 // style
 import "./index.css";
 
-class AdvanceSectionComponent extends React.Component
+class ConfigurationSectionComponent extends React.Component
 {
     render()
     {
         return(
             <Row type="flex">
                 <Col span={24}>
-                    <div className="advance">
-                        <h1>Super avance</h1>
+                    <div className="configuration">
+                        <h1>Configuración</h1>
                     </div>
                 </Col>
             </Row>
@@ -29,4 +29,4 @@ function mapStateToProps(state)
     }
 }
 
-export default withRouter(connect(mapStateToProps, {})(AdvanceSectionComponent));
+export default withRouter(connect(mapStateToProps, {})(ConfigurationSectionComponent));

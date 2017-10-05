@@ -1,13 +1,14 @@
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import {ApolloClient} from "react-apollo";
-import {Reducers} from "./reducers";
+import {Reducers} from "./reducers/index";
 import {routerMiddleware, routerReducer} from "react-router-redux";
 import {createBrowserHistory} from "history";
+import thunk from 'redux-thunk';
 
 export const history = createBrowserHistory();
 export const client = new ApolloClient();
 
-const middleware = [routerMiddleware(history), client.middleware()];
+const middleware = [routerMiddleware(history), client.middleware(), thunk];
 
 export const store = createStore(
     combineReducers(
