@@ -60,22 +60,22 @@ class SignInForm extends React.Component
 
         return (
             <Spin spinning={this.props.session.isAuthenticating} tip="Validando, espere un momento">
-                {this.props.session.isLogout ? m_logoutAlert : null}
-                {this.props.session.isError ? m_errorAlert : null}
-                {this.props.session.isTokenError ? m_errorTokenAlert : null}
-                {this.props.session.isNetworkError ? m_errorNetworkAlert : null}
-                <br/>
                 <Form onSubmit={this.handleSubmit} className="sign-in-form">
+                    {this.props.session.isLogout ? m_logoutAlert : null}
+                    {this.props.session.isError ? m_errorAlert : null}
+                    {this.props.session.isTokenError ? m_errorTokenAlert : null}
+                    {this.props.session.isNetworkError ? m_errorNetworkAlert : null}
+                    <br/>
                     <FormItem>
                         {getFieldDecorator('email', {
-                            rules: [{ required: true, message: 'No olvides ingresar tu email!' }],
+                            rules: [{ required: true, message: 'Ingrese su correo' }],
                         })(
                             <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="Email" />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
-                            rules: [{ required: true, message: 'Por favor, ingresa tu contraseña.' }],
+                            rules: [{ required: true, message: 'Ingrese su contraseña.' }],
                         })(
                             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Contraseña" />
                         )}
@@ -106,7 +106,7 @@ class SignInForm extends React.Component
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.fetchSignIn({email: values.email, password: values.password});
+                this.props.fetchSignIn(values);
             }
         });
     }

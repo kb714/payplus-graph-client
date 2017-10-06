@@ -1,5 +1,8 @@
 .sign-in-form {
   padding: 0 15px;
+  @media (min-width: 1700px) {
+    padding: 0 150px;
+  }
   .sign-in-button {
     width: 100%;
   }

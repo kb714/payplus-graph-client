@@ -29,7 +29,7 @@ export default function(ComposedComponent)
             return(
                 <div id="session-wrapper">
                     <Row type="flex" justify="center">
-                        <Col xs={{span: 24}} md={{span: 12}} lg={{span: 8}}>
+                        <Col xs={{span: 24}} md={{span: 12}} lg={{span: 8}} xl={{span: 8}}>
                             <div className="text-center logo">
                                 <img src={logo} alt="Logo"/>
                             </div>

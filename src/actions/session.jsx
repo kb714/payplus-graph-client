@@ -104,44 +104,106 @@ function fetchSignOut()
 
 function resetAlerts()
 {
-    return {type: sessionTypes.RESET_SIGN_IN_ERRORS, payload: {isError: false, isNetworkError: false, isTokenError: false, isLogout: false}};
+    return {
+        type: sessionTypes.RESET_SIGN_IN_ERRORS,
+        payload:
+            {
+                isError: false,
+                isNetworkError: false,
+                isTokenError: false,
+                isLogout: false
+            }
+    };
 }
 
 // local
 
 function requestSignIn()
 {
-    return {type: sessionTypes.FETCH_SIGN_IN, payload: {isAuthenticating: true, isAuthenticated: false}};
+    return {
+        type: sessionTypes.FETCH_SIGN_IN,
+        payload:
+            {
+                isAuthenticating: true,
+                isAuthenticated: false
+            }
+    };
 }
 
 function requestSignOut()
 {
-    return {type: sessionTypes.FETCH_SIGN_OUT, payload: {isAuthenticating: true, isAuthenticated: true, isLogout: true}};
+    return {
+        type: sessionTypes.FETCH_SIGN_OUT,
+        payload:
+            {
+                isAuthenticating: true,
+                isAuthenticated: true,
+                isLogout: true
+            }
+    };
 }
 
 function successSignIn(res)
 {
-    return {type: sessionTypes.SUCCESS_SIGN_IN, payload: {isAuthenticating: false, isAuthenticated: true}};
+    return {
+        type: sessionTypes.SUCCESS_SIGN_IN,
+        payload:
+            {
+                isAuthenticating: false,
+                isAuthenticated: true
+            }
+    };
 }
 
 function successSignOut(res)
 {
-    return {type: sessionTypes.SUCCESS_SIGN_OUT, payload: {isAuthenticating: false, isAuthenticated: false}};
+    return {
+        type: sessionTypes.SUCCESS_SIGN_OUT,
+        payload:
+            {
+                isAuthenticating: false,
+                isAuthenticated: false
+            }
+    };
 }
 
 function errorSignIn(err)
 {
-    return {type: sessionTypes.ERROR_SIGN_IN, payload: {isAuthenticating: false, isAuthenticated: false, isError: true}};
+    return {
+        type: sessionTypes.ERROR_SIGN_IN,
+        payload:
+            {
+                isAuthenticating: false,
+                isAuthenticated: false,
+                isError: true
+            }
+    };
 }
 
 function errorSignInToken(err)
 {
-    return {type: sessionTypes.ERROR_SIGN_IN, payload: {isAuthenticating: false, isAuthenticated: false, isTokenError: true}};
+    return {
+        type: sessionTypes.ERROR_SIGN_IN,
+        payload:
+            {
+                isAuthenticating: false,
+                isAuthenticated: false,
+                isTokenError: true
+            }
+    };
 }
 
 function errorNetwork(err)
 {
-    return {type: sessionTypes.ERROR_SIGN_IN, payload: {isAuthenticating: false, isAuthenticated: false, isNetworkError: true}};
+    return {
+        type: sessionTypes.ERROR_SIGN_IN,
+        payload:
+            {
+                isAuthenticating: false,
+                isAuthenticated: false,
+                isNetworkError: true
+            }
+    };
 }
 
 export const sessionActions = {
