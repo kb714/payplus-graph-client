@@ -1,9 +1,11 @@
 import React from "react";
-// UI
-import {Alert, Button, Checkbox, Form, Icon, Input, Spin} from "antd";
 import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom";
 import {sessionActions} from "../../../actions/session";
+// UI
+import {Alert, Button, Checkbox, Form, Icon, Input, Spin} from "antd";
+// Style
+import "./form.css";
 // Session actions
 const FormItem = Form.Item;
 
@@ -63,7 +65,7 @@ class SignInForm extends React.Component
                 {this.props.session.isTokenError ? m_errorTokenAlert : null}
                 {this.props.session.isNetworkError ? m_errorNetworkAlert : null}
                 <br/>
-                <Form onSubmit={this.handleSubmit} className="login-form">
+                <Form onSubmit={this.handleSubmit} className="sign-in-form">
                     <FormItem>
                         {getFieldDecorator('email', {
                             rules: [{ required: true, message: 'No olvides ingresar tu email!' }],
@@ -83,13 +85,16 @@ class SignInForm extends React.Component
                             valuePropName: 'checked',
                             initialValue: true,
                         })(
-                            <Checkbox>Remember me</Checkbox>
+                            <Checkbox>Recordar</Checkbox>
                         )}
-                        <a className="login-form-forgot" href="">Forgot password</a>
-                        <br/>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+
+                        <a className="login-form-forgot" style={{float: "right"}} href="">Olvidé mi contraseña</a>
+                        <Button type="primary" htmlType="submit" className="sign-in-button">
                             Ingresar
-                        </Button> Or <Link to="/">register now!</Link>
+                        </Button>
+                        <div className="text-center">
+                            <Link to="/signup">Crear nueva cuenta</Link>
+                        </div>
                     </FormItem>
                 </Form>
             </Spin>
