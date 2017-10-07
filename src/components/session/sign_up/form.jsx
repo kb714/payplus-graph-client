@@ -13,7 +13,12 @@ class SignUpForm extends React.Component
     constructor()
     {
         super();
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.checkConfirm = this.checkConfirm.bind(this);
+        this.checkPassword = this.checkPassword.bind(this);
+        this.state = {
+            confirmDirty: false
+        };
     }
 
     render()
@@ -63,18 +68,33 @@ class SignUpForm extends React.Component
                     {/*Password*/}
                     <FormItem
                         {...m_formItemLayout}
-                        label="E-mail"
+                        label="Password"
                         hasFeedback>
                         {getFieldDecorator('password', {
                             rules: [{
-                                type: 'password', message: 'The input is not valid E-mail!',
+                                required: true, message: 'Please input your password!',
                             }, {
-                                required: true, message: 'Ingrese su contraseña',
+                                validator: this.checkConfirm,
                             }],
                         })(
-                            <Input type="password"/>
+                            <Input type="password" />
                         )}
                     </FormItem>
+                    <FormItem
+                        {...m_formItemLayout}
+                        label="Confirm Password"
+                        hasFeedback>
+                        {getFieldDecorator('confirm', {
+                            rules: [{
+                                required: true, message: 'Please confirm your password!',
+                            }, {
+                                validator: this.checkPassword,
+                            }],
+                        })(
+                            <Input type="password" onBlur={this.handleConfirmBlur} />
+                        )}
+                    </FormItem>
+
                     <FormItem {...m_tailFormItemLayout}>
                         <Button type="primary" htmlType="submit" className="sign-up-button">
                             Registrar
@@ -88,12 +108,42 @@ class SignUpForm extends React.Component
         );
     }
 
+    handleConfirmBlur(e)
+    {
+        const value = e.target.value;
+        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
+
+    checkPassword(rule, value, callback)
+    {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password'))
+        {
+            callback('Two passwords that you enter is inconsistent!');
+        }
+        else
+        {
+            callback();
+        }
+    }
+
+    checkConfirm(rule, value, callback)
+    {
+        const form = this.props.form;
+        if (value && this.state.confirmDirty)
+        {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback();
+    }
+
     handleSubmit(e)
     {
         console.log("submit"); //TODO: delete line
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
+            if (!err)
+            {
                 console.log("Valores:", values); // TODO: delete line
             }
         });
