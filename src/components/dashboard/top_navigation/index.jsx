@@ -56,7 +56,7 @@ class TopNavigationComponent extends React.Component
                     </Tooltip>
                     <div className="user-name">
                         <Avatar style={m_avatarStyle}>JP</Avatar>
-                        <span className="text-name">Juanito Pérez</span>
+                        <span className="text-name">{this.props.session.uid}</span>
                     </div>
                     <Tooltip title="Desconectar">
                         <Button className="logout-btn" type="danger" shape="circle" icon="logout" size="large" onClick={this.handleSignOut}/>

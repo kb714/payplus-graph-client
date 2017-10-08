@@ -11,6 +11,7 @@ function setHeaders()
     instance.defaults.headers.common['access-token'] = localStorage.getItem('access-token');
 }
 
+// signIn
 function fetchSignIn(data)
 {
     return dispatch => {
@@ -23,6 +24,7 @@ function fetchSignIn(data)
                 localStorage.setItem('client', res.headers['client']);
                 localStorage.setItem('expiry', res.headers['expiry']);
                 localStorage.setItem('uid', res.headers['uid']);
+                localStorage.setItem('api_key', res.data.data['api_key']);
                 dispatch(successSignIn());
             })
             .catch((err) =>
@@ -39,6 +41,7 @@ function fetchSignIn(data)
                 {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error', err.message);
+                    dispatch(errorNetwork());
                 }
             });
     }
@@ -76,6 +79,40 @@ function fetchValidateToken()
     }
 }
 
+// sign up
+function fetchSignUp(data)
+{
+    return dispatch => {
+        dispatch(requestSignUp());
+        axios.post(CONFIG.ENDPOINT.SIGN_UP, data)
+            .then((res) =>
+            {
+                // save header on localstorage
+                //dispatch(successSignIn());
+                console.log(res); // TODO: delete
+                dispatch(successSignUp());
+            })
+            .catch((err) =>
+            {
+                if (err.response)
+                {
+                    dispatch(errorSignUp(err.response));
+                    console.log(err.response.data) // Todo: delete
+                }
+                else if (err.request)
+                {
+                    dispatch(errorNetwork());
+                }
+                else
+                {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', err.message);
+                }
+            });
+    }
+}
+
+// sign out
 function fetchSignOut()
 {
     return dispatch => {
@@ -111,7 +148,9 @@ function resetAlerts()
                 isError: false,
                 isNetworkError: false,
                 isTokenError: false,
-                isLogout: false
+                isLogout: false,
+                isSuccessSignUp: false,
+                isSignUpError: false
             }
     };
 }
@@ -126,6 +165,17 @@ function requestSignIn()
             {
                 isAuthenticating: true,
                 isAuthenticated: false
+            }
+    };
+}
+
+function requestSignUp()
+{
+    return {
+        type: sessionTypes.FETCH_SIGN_UP,
+        payload:
+            {
+                isAuthenticating: true
             }
     };
 }
@@ -150,7 +200,23 @@ function successSignIn(res)
         payload:
             {
                 isAuthenticating: false,
-                isAuthenticated: true
+                isAuthenticated: true,
+                uid: localStorage.getItem("uid")
+            }
+    };
+}
+
+function successSignUp()
+{
+    return {
+        type: sessionTypes.SUCCESS_SIGN_UP,
+        payload:
+            {
+                isAuthenticating: false,
+                isAuthenticated: false,
+                isSuccessSignUp: true,
+                isSignUpError: false,
+                signUpData: {}
             }
     };
 }
@@ -176,6 +242,19 @@ function errorSignIn(err)
                 isAuthenticating: false,
                 isAuthenticated: false,
                 isError: true
+            }
+    };
+}
+
+function errorSignUp(err)
+{
+    return {
+        type: sessionTypes.ERROR_SIGN_IN,
+        payload:
+            {
+                isAuthenticating: false,
+                isSignUpError: true,
+                signUpData: err
             }
     };
 }
@@ -208,6 +287,7 @@ function errorNetwork(err)
 
 export const sessionActions = {
     fetchSignIn,
+    fetchSignUp,
     fetchSignOut,
     fetchValidateToken,
     resetAlerts

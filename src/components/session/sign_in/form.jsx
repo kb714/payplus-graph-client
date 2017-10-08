@@ -14,10 +14,10 @@ class SignInForm extends React.Component
     constructor()
     {
         super();
-        // local usage
-        this.state = {errorResetflag: true};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.removeAlerts = this.removeAlerts.bind(this);
+        // local usage
+        this.state = {errorResetflag: true};
     }
 
     componentWillMount()
@@ -40,19 +40,21 @@ class SignInForm extends React.Component
     {
         // check if error alert is active
         if((nextProps.session.isError || nextProps.session.isNetworkError
-                || nextProps.session.isTokenError || nextProps.session.isLogout) && this.state.errorResetflag)
+                || nextProps.session.isTokenError || nextProps.session.isLogout
+            || nextProps.session.isSuccessSignUp) && this.state.errorResetflag)
         {
             this.setState({errorResetflag: false});
             setTimeout(() => {
                 this.props.resetAlerts();
                 this.setState({errorResetflag: true});
-            }, 4000)
+            }, 6000)
         }
     }
 
     render()
     {
-        const { getFieldDecorator } = this.props.form;
+        const {getFieldDecorator} = this.props.form;
+        const m_signUpAlert = <Alert message="Cuenta creada con éxito, inicie sesión" type="success" showIcon />;
         const m_logoutAlert = <Alert message="Sesión cerrada" type="info" showIcon />;
         const m_errorAlert = <Alert message="Usuario o contraseña incorrecto" type="warning" showIcon />;
         const m_errorTokenAlert = <Alert message="Su sesión a expirado, vuelva a iniciar" type="warning" showIcon />;
@@ -61,6 +63,7 @@ class SignInForm extends React.Component
         return (
             <Spin spinning={this.props.session.isAuthenticating} tip="Validando, espere un momento">
                 <Form onSubmit={this.handleSubmit} className="sign-in-form">
+                    {this.props.session.isSuccessSignUp ? m_signUpAlert : null}
                     {this.props.session.isLogout ? m_logoutAlert : null}
                     {this.props.session.isError ? m_errorAlert : null}
                     {this.props.session.isTokenError ? m_errorTokenAlert : null}
@@ -68,14 +71,14 @@ class SignInForm extends React.Component
                     <br/>
                     <FormItem>
                         {getFieldDecorator('email', {
-                            rules: [{ required: true, message: 'Ingrese su correo' }],
+                            rules: [{required: true, message: 'Ingrese su correo'}],
                         })(
-                            <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="Email" />
+                            <Input prefix={<Icon type="mail" style={{fontSize: 13}} />} placeholder="Email" />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
-                            rules: [{ required: true, message: 'Ingrese su contraseña.' }],
+                            rules: [{required: true, message: 'Ingrese su contraseña.'}],
                         })(
                             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Contraseña" />
                         )}

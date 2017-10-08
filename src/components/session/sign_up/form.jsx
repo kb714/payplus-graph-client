@@ -1,10 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
+// Session Actions
+import {sessionActions} from "../../../actions/session";
 // UI
-import {Button, Form, Input, Spin} from "antd";
+import {Button, Form, Input, Spin, message} from "antd";
 // Style
 import "./form.css";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 const FormItem = Form.Item;
 
@@ -14,11 +16,49 @@ class SignUpForm extends React.Component
     {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleConfirmBlur = this.handleConfirmBlur.bind(this);
         this.checkConfirm = this.checkConfirm.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
         this.state = {
             confirmDirty: false
         };
+    }
+
+    componentWillReceiveProps(nextProps)
+    {
+        if(nextProps.session.isSignUpError)
+        {
+            console.log("sign up error", nextProps.session.signUpData); // Todo: delete
+            this.props.resetAlerts();
+            const m_signUpData = nextProps.session.signUpData.data.errors;
+
+            let m_errors = {};
+
+            for (let i in m_signUpData) {
+                m_errors = {...m_errors, [i]: {value: this.props.form.getFieldValue(i), errors: [m_signUpData[i][0]]}}
+            }
+
+            console.log(m_errors);
+
+            this.props.form.validateFields((error, values) => {
+                if (!error)
+                {
+                    console.log('ok', values);
+                    this.props.form.setFields({...m_errors});
+                }
+                else
+                {
+                    console.log('error', error, values);
+                }
+            });
+        }
+
+        if(nextProps.session.isSuccessSignUp)
+        {
+            // this.props.resetAlerts();
+            // message.success('Registro exitoso, puede iniciar sesión');
+            this.props.history.push("/signin");
+        }
     }
 
     render()
@@ -48,7 +88,7 @@ class SignUpForm extends React.Component
         };
 
         return(
-            <Spin spinning={false}>
+            <Spin spinning={this.props.session.isAuthenticating}>
                 <Form onSubmit={this.handleSubmit} className="sign-up-form">
                     {/*Email*/}
                     <FormItem
@@ -57,7 +97,7 @@ class SignUpForm extends React.Component
                         hasFeedback>
                         {getFieldDecorator('email', {
                             rules: [{
-                                type: 'email', message: 'The input is not valid E-mail!',
+                                type: 'email', message: 'Debe ingresar un correo electrónico válido',
                             }, {
                                 required: true, message: 'Ingrese su correo',
                             }],
@@ -68,11 +108,11 @@ class SignUpForm extends React.Component
                     {/*Password*/}
                     <FormItem
                         {...m_formItemLayout}
-                        label="Password"
+                        label="Contraseña"
                         hasFeedback>
                         {getFieldDecorator('password', {
                             rules: [{
-                                required: true, message: 'Please input your password!',
+                                required: true, message: 'Ingrese su contraseña',
                             }, {
                                 validator: this.checkConfirm,
                             }],
@@ -82,11 +122,11 @@ class SignUpForm extends React.Component
                     </FormItem>
                     <FormItem
                         {...m_formItemLayout}
-                        label="Confirm Password"
+                        label="Confirme contraseña"
                         hasFeedback>
-                        {getFieldDecorator('confirm', {
+                        {getFieldDecorator('password_confirmation', {
                             rules: [{
-                                required: true, message: 'Please confirm your password!',
+                                required: true, message: 'Por favor, confirme su contraseña',
                             }, {
                                 validator: this.checkPassword,
                             }],
@@ -119,7 +159,7 @@ class SignUpForm extends React.Component
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password'))
         {
-            callback('Two passwords that you enter is inconsistent!');
+            callback('Las contraseñas no coinciden');
         }
         else
         {
@@ -132,19 +172,19 @@ class SignUpForm extends React.Component
         const form = this.props.form;
         if (value && this.state.confirmDirty)
         {
-            form.validateFields(['confirm'], { force: true });
+            form.validateFields(['password_confirmation'], { force: true });
         }
         callback();
     }
 
     handleSubmit(e)
     {
-        console.log("submit"); //TODO: delete line
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err)
             {
-                console.log("Valores:", values); // TODO: delete line
+                console.log(values); // TODO: delete line
+                this.props.fetchSignUp(values);
             }
         });
     }
@@ -159,4 +199,4 @@ function mapStateToProps(state)
     };
 }
 
-export default connect(mapStateToProps, {})(WrappedSignUpForm);
+export default withRouter(connect(mapStateToProps, sessionActions)(WrappedSignUpForm));

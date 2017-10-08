@@ -1,12 +1,29 @@
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
-import {ApolloClient} from "react-apollo";
+import {ApolloClient, createNetworkInterface} from "react-apollo";
 import {Reducers} from "./reducers/index";
 import {routerMiddleware, routerReducer} from "react-router-redux";
 import {createBrowserHistory} from "history";
 import thunk from 'redux-thunk';
+import {CONFIG} from "./lib/config";
 
 export const history = createBrowserHistory();
-export const client = new ApolloClient();
+const networkInterface = createNetworkInterface({
+    uri: CONFIG.ENDPOINT.GRAPHQL
+});
+networkInterface.use([{
+    applyMiddleware(req, next) {
+        if (!req.options.headers)
+        {
+            req.options.headers = {};
+        }
+        const api_key = localStorage.getItem('api_key');
+        req.options.headers.authorization = api_key ? `${api_key}` : null;
+        next();
+    }
+}]);
+export const client = new ApolloClient({
+    networkInterface: networkInterface
+});
 
 const middleware = [routerMiddleware(history), client.middleware(), thunk];
 

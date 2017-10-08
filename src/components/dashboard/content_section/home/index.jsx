@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
+import {gql, graphql, withApollo, compose} from "react-apollo";
 // UI
 import {Button, Col, Row} from "antd";
 // Text
@@ -12,6 +13,7 @@ class HomeSectionComponent extends React.Component
 {
     render()
     {
+        console.log(this.props);
         return(
             <Row type="flex" justify="space-around" align="middle" style={{height: "100%"}}>
                 <Col span={24}>
@@ -32,6 +34,14 @@ class HomeSectionComponent extends React.Component
     }
 }
 
+const query = gql`
+          {
+            shops {
+                name
+            }
+          }
+        `;
+
 function mapStateToProps(state)
 {
     return {
@@ -39,4 +49,4 @@ function mapStateToProps(state)
     }
 }
 
-export default withRouter(connect(mapStateToProps, {})(HomeSectionComponent));
+export default withRouter(compose(graphql(query), connect(mapStateToProps, {}))(HomeSectionComponent));
