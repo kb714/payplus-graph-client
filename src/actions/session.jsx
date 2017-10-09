@@ -63,7 +63,7 @@ function fetchValidateToken()
             })
             .catch((err) =>
             {
-                if(err.response.status === 401)
+                if (err.response)
                 {
                     localStorage.removeItem('access-token');
                     localStorage.removeItem('client');
@@ -71,9 +71,14 @@ function fetchValidateToken()
                     localStorage.removeItem('uid');
                     dispatch(errorSignInToken());
                 }
-                else
+                else if (err.request)
                 {
                     dispatch(errorNetwork());
+                }
+                else
+                {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', err.message);
                 }
             });
     }
