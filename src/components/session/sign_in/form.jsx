@@ -61,7 +61,7 @@ class SignInForm extends React.Component
         const m_errorNetworkAlert = <Alert message="Existen problemas de red, inténtelo más tarde" type="error" showIcon />;
 
         return (
-            <Spin spinning={this.props.session.isAuthenticating} tip="Validando, espere un momento">
+            <Spin spinning={false} tip="Validando, espere un momento">
                 <Form onSubmit={this.handleSubmit} className="sign-in-form">
                     {this.props.session.isSuccessSignUp ? m_signUpAlert : null}
                     {this.props.session.isLogout ? m_logoutAlert : null}
@@ -92,7 +92,7 @@ class SignInForm extends React.Component
                         )}
 
                         <a className="login-form-forgot" style={{float: "right"}} href="">Olvidé mi contraseña</a>
-                        <Button type="primary" htmlType="submit" className="sign-in-button">
+                        <Button loading={this.props.session.isAuthenticating} type="primary" htmlType="submit" className="sign-in-button">
                             Ingresar
                         </Button>
                         <div className="text-center">
