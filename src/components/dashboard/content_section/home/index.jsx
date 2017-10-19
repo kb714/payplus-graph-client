@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {gql, graphql, withApollo, compose} from "react-apollo";
+import {gql, graphql, compose} from "react-apollo";
 // UI
 import {Button, Col, Row} from "antd";
 // Text

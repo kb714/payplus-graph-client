@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 // Session Actions
 import {sessionActions} from "../../../actions/session";
 // UI
-import {Button, Form, Input, Spin, message} from "antd";
+import {Button, Form, Input, Spin} from "antd";
 // Style
 import "./form.css";
 import {Link, withRouter} from "react-router-dom";
@@ -55,8 +55,6 @@ class SignUpForm extends React.Component
 
         if(nextProps.session.isSuccessSignUp)
         {
-            // this.props.resetAlerts();
-            // message.success('Registro exitoso, puede iniciar sesión');
             this.props.history.push("/signin");
         }
     }
@@ -88,7 +86,7 @@ class SignUpForm extends React.Component
         };
 
         return(
-            <Spin spinning={this.props.session.isAuthenticating}>
+            <Spin spinning={false}>
                 <Form onSubmit={this.handleSubmit} className="sign-up-form">
                     {/*Email*/}
                     <FormItem
@@ -136,7 +134,10 @@ class SignUpForm extends React.Component
                     </FormItem>
 
                     <FormItem {...m_tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit" className="sign-up-button">
+                        <Button loading={this.props.session.isAuthenticating}
+                                type="primary"
+                                htmlType="submit"
+                                className="sign-up-button">
                             Registrar
                         </Button>
                         <div className="text-center">
