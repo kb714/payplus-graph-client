@@ -8,6 +8,7 @@ import {Button, Col, Row} from "antd";
 import {PLAIN_TEXT} from "../../../../lib/plainText";
 // style
 import "./index.css";
+// Components
 
 class HomeSectionComponent extends React.Component
 {
@@ -56,7 +57,7 @@ class HomeSectionComponent extends React.Component
 }
 
 const query = gql`
-          query getShops{
+          query getShops {
             shops {
                 name
             }
