@@ -3,7 +3,8 @@ import {STYLE_CONSTANT} from "../lib/style_const/index";
 
 const INITIAL_STATE = {
     lateralCollapsed: window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT,
-    contentLoading: false
+    contentLoading: false,
+    newShopForm: false
 };
 
 export default function(state = INITIAL_STATE, action)
