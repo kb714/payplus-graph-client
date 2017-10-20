@@ -1,13 +1,13 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import React from "react";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 // actions
-import {dashboardActions} from '../../../actions/dashboard';
+import {dashboardActions} from "../../../actions/dashboard";
 import {sessionActions} from "../../../actions/session";
 // UI
-import {Row, Col, Avatar, Button, Tooltip, Badge, Popover} from 'antd';
+import {Row, Col, Avatar, Button, Tooltip, Badge, Popover} from "antd";
 // style
-import './index.css';
+import "./index.css";
 
 class TopNavigationComponent extends React.Component
 {
@@ -33,6 +33,7 @@ class TopNavigationComponent extends React.Component
             </div>
         );
         const m_avatarStyle = {verticalAlign: "middle", marginRight: "15px"};
+        const m_userEmail = this.props.session.uid || "";
 
         return(
             <Row id="top-navigation-component" gutter={16} type="flex" justify="space-between" align="middle" style={m_topSizeStyle}>
@@ -55,8 +56,8 @@ class TopNavigationComponent extends React.Component
                         </Popover>
                     </Tooltip>
                     <div className="user-name">
-                        <Avatar style={m_avatarStyle}>JP</Avatar>
-                        <span className="text-name">{this.props.session.uid}</span>
+                        <Avatar style={m_avatarStyle}>{m_userEmail.charAt(0).toUpperCase()}</Avatar>
+                        <span className="text-name">{m_userEmail}</span>
                     </div>
                     <Tooltip title="Desconectar">
                         <Button className="logout-btn" type="danger" shape="circle" icon="logout" size="large" onClick={this.handleSignOut}/>

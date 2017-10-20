@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Chettan');
 #top-navigation-component {
   position: absolute;
   top: 0;
@@ -39,21 +40,16 @@
   }
   .logo-pp-container {
     text-align: center;
-    color: #404040;
+    color: #322b45;
     .logo {
+      font-family: 'Baloo Chettan', cursive;
       display: inline;
       padding: 15px;
-      font-size: 21px;
-      font-weight: 500;
-      font-style: italic;
+      font-size: 24px;
       transition: all linear 0.2s;
       span {
-        font-weight: 700;
-        color: #f04134;
+        color: #ed3432;
 
-      }
-      &:hover {
-        color: #f04134;
       }
     }
     @media (max-width: 767px) {

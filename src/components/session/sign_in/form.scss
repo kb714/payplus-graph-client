@@ -1,10 +1,7 @@
 .sign-in-form {
   padding: 0 15px;
-  @media (min-width: 1700px) {
-    padding: 0 150px;
-  }
-  @media (min-width: 1280px) {
-    padding: 0 200px;
+  @media (min-width: 1900px) {
+    padding: 0 100px;
   }
   .sign-in-button {
     width: 100%;
