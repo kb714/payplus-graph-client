@@ -8,15 +8,15 @@ import {Button, Col, Row} from "antd";
 import {PLAIN_TEXT} from "../../../../lib/plainText";
 // style
 import "./index.css";
-// Components
+// Dashboard Actions
+import {dashboardActions} from "../../../../actions/dashboard";
+// shop form
+import NewShopComponent from "./newShop";
 
 class HomeSectionComponent extends React.Component
 {
     render()
     {
-        //console.log(this.props.data); // TODO: delete
-        console.log("Loading: ", this.props.data.loading);
-        console.log("La cantidad es: ", this.props.data.shops);
         // check if data is loading
         if(this.props.data.loading)
         {
@@ -28,7 +28,7 @@ class HomeSectionComponent extends React.Component
             if(this.props.data.shops.length < 1)
             {
                 return(
-                    <Row type="flex" justify="space-around" align="middle" style={{height: "100%"}}>
+                    <Row type="flex" justify="space-around" align="middle" style={{ height: "100%" }}>
                         <Col span={24}>
                             <div className="text-center initial-dashboard">
                                 <h1>{PLAIN_TEXT.BASE.WELCOME.TITLE}</h1>
@@ -37,7 +37,8 @@ class HomeSectionComponent extends React.Component
                                 <Button icon="plus-circle-o"
                                         shape="circle"
                                         type="danger"
-                                        onClick={this.click.bind(this)}/>
+                                        onClick={this.handleNewShopForm}/>
+                                <NewShopComponent />
                             </div>
                         </Col>
                     </Row>
@@ -50,9 +51,16 @@ class HomeSectionComponent extends React.Component
         }
     }
 
-    click()
+    handleNewShopForm = () =>
     {
-        this.props.history.push("super-avance");
+        if(!this.props.dashboard.shops.newForm)
+        {
+            this.props.openNewShopForm();
+        }
+        else
+        {
+            this.props.closeNewShopForm();
+        }
     }
 }
 
@@ -71,4 +79,4 @@ function mapStateToProps(state)
     }
 }
 
-export default withRouter(compose(graphql(query), connect(mapStateToProps, {}))(HomeSectionComponent));
+export default withRouter(compose(graphql(query), connect(mapStateToProps, {...dashboardActions}))(HomeSectionComponent));

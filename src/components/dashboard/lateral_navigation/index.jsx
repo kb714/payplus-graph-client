@@ -14,28 +14,19 @@ import "./index.css";
 
 class LateralNavigationComponent extends React.Component
 {
-    constructor()
-    {
-        super();
-        this.handleNavigation = this.handleNavigation.bind(this);
-    }
     render()
     {
         const m_lateralCollapsed = this.props.dashboard.lateralCollapsed;
+
         const m_lateralNavigationStyle = {
-            width: m_lateralCollapsed
-                ? STYLE_CONSTANT.LATERAL_MENU.SIZE.CLOSE : STYLE_CONSTANT.LATERAL_MENU.SIZE.OPEN};
+            width: m_lateralCollapsed ? STYLE_CONSTANT.LATERAL_MENU.SIZE.CLOSE : STYLE_CONSTANT.LATERAL_MENU.SIZE.OPEN};
+
         const m_blackHelperStyle = {
             width: m_lateralCollapsed ?
-                0 :
-                ( window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT ?
-                    "100%"
-                    : 0),
+                0 : ( window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT ? "100%" : 0),
             background: m_lateralCollapsed ?
-                "transparent" :
-                ( window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT ?
-                    "rgba(0, 0, 0, 0.6)" :
-                    "transparent")
+                "transparent" : ( window.innerWidth <= STYLE_CONSTANT.LATERAL_MENU.SIZE.COLLAPSE_LIMIT ?
+                    "rgba(0, 0, 0, 0.6)" : "transparent")
         };
 
         return [
@@ -61,7 +52,7 @@ class LateralNavigationComponent extends React.Component
         ];
     }
 
-    handleNavigation(item)
+    handleNavigation = (item) =>
     {
         this.props.history.push(item.key);
     }

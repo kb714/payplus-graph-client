@@ -12,23 +12,14 @@ const FormItem = Form.Item;
 
 class SignUpForm extends React.Component
 {
-    constructor()
-    {
-        super();
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleConfirmBlur = this.handleConfirmBlur.bind(this);
-        this.checkConfirm = this.checkConfirm.bind(this);
-        this.checkPassword = this.checkPassword.bind(this);
-        this.state = {
-            confirmDirty: false
-        };
-    }
+    state = {
+        confirmDirty: false
+    };
 
     componentWillReceiveProps(nextProps)
     {
         if(nextProps.session.isSignUpError)
         {
-            console.log("sign up error", nextProps.session.signUpData); // Todo: delete
             this.props.resetAlerts();
             const m_signUpData = nextProps.session.signUpData.data.errors;
 
@@ -149,13 +140,13 @@ class SignUpForm extends React.Component
         );
     }
 
-    handleConfirmBlur(e)
+    handleConfirmBlur = (e) =>
     {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
 
-    checkPassword(rule, value, callback)
+    checkPassword = (rule, value, callback) =>
     {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password'))
@@ -168,7 +159,7 @@ class SignUpForm extends React.Component
         }
     }
 
-    checkConfirm(rule, value, callback)
+    checkConfirm = (rule, value, callback) =>
     {
         const form = this.props.form;
         if (value && this.state.confirmDirty)
@@ -178,13 +169,13 @@ class SignUpForm extends React.Component
         callback();
     }
 
-    handleSubmit(e)
+    handleSubmit = (e) =>
     {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err, values) =>
+        {
             if (!err)
             {
-                console.log(values); // TODO: delete line
                 this.props.fetchSignUp(values);
             }
         });

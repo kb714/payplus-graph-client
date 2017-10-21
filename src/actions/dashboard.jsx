@@ -1,4 +1,5 @@
 import * as dashboardTypes from '../lib/action_types/dashboard';
+import * as SHOPS_ACTIONS from './shop';
 
 function openLateralNavigation()
 {
@@ -12,5 +13,7 @@ function closeLateralNavigation()
 
 export const dashboardActions = {
     openLateralNavigation,
-    closeLateralNavigation
+    closeLateralNavigation,
+    openNewShopForm: SHOPS_ACTIONS.openNewShopForm,
+    closeNewShopForm: SHOPS_ACTIONS.closeNewShopForm
 };

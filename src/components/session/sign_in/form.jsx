@@ -11,14 +11,7 @@ const FormItem = Form.Item;
 
 class SignInForm extends React.Component
 {
-    constructor()
-    {
-        super();
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.removeAlerts = this.removeAlerts.bind(this);
-        // local usage
-        this.state = {errorResetflag: true};
-    }
+    state = { errorResetflag: true };
 
     componentWillMount()
     {
@@ -33,21 +26,6 @@ class SignInForm extends React.Component
         if(nextProps.session.isAuthenticated && !nextProps.session.isAuthenticating)
         {
             this.props.history.push("/");
-        }
-    }
-
-    removeAlerts(nextProps)
-    {
-        // check if error alert is active
-        if((nextProps.session.isError || nextProps.session.isNetworkError
-                || nextProps.session.isTokenError || nextProps.session.isLogout
-            || nextProps.session.isSuccessSignUp) && this.state.errorResetflag)
-        {
-            this.setState({errorResetflag: false});
-            setTimeout(() => {
-                this.props.resetAlerts();
-                this.setState({errorResetflag: true});
-            }, 6000)
         }
     }
 
@@ -104,7 +82,22 @@ class SignInForm extends React.Component
         );
     }
 
-    handleSubmit(e)
+    removeAlerts = (nextProps) =>
+    {
+        // check if error alert is active
+        if((nextProps.session.isError || nextProps.session.isNetworkError
+                || nextProps.session.isTokenError || nextProps.session.isLogout
+                || nextProps.session.isSuccessSignUp) && this.state.errorResetflag)
+        {
+            this.setState({errorResetflag: false});
+            setTimeout(() => {
+                this.props.resetAlerts();
+                this.setState({errorResetflag: true});
+            }, 6000)
+        }
+    }
+
+    handleSubmit = (e) =>
     {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {

@@ -8,25 +8,25 @@ import {ROUTES} from "./lib/routes";
 
 class AppComponent extends React.Component
 {
-	render()
-	{
-		return (
+    render()
+    {
+        return (
 			<ConnectedRouter history={history}>
 				<Switch>
-					{ROUTES.MAIN.map((item) => {
+                    {ROUTES.MAIN.map((item) => {
                         return <Route key={item.url} exact={item.exact} path={item.url} component={item.component} />
                     })}
-                </Switch>
+				</Switch>
 			</ConnectedRouter>
-		);
-	}
+        );
+    }
 }
 
 function mapStateToProps(state)
 {
-	return {
+    return {
         session: state.session
-	};
+    };
 }
 
 export default connect(mapStateToProps, {})(AppComponent);

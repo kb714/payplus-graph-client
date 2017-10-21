@@ -1,2 +1,5 @@
 export const OPEN_LATERAL_NAV = "OPEN_LATERAL_NAV";
 export const CLOSE_LATERAL_NAV = "CLOSE_LATERAL_NAV";
+// shops
+export const SHOP_NEW_FORM_OPEN = "SHOP_NEW_FORM_OPEN";
+export const SHOP_NEW_FORM_CLOSE = "SHOP_NEW_FORM_CLOSE";

@@ -11,13 +11,6 @@ import "./index.css";
 
 class TopNavigationComponent extends React.Component
 {
-    constructor()
-    {
-        super();
-        this.handleLateralNavigation = this.handleLateralNavigation.bind(this);
-        this.handleSignOut = this.handleSignOut.bind(this);
-    }
-
     render()
     {
         const m_topSizeStyle = {height: "60px", padding: "0 10px", margin: 0};
@@ -67,7 +60,7 @@ class TopNavigationComponent extends React.Component
         );
     }
 
-    handleLateralNavigation()
+    handleLateralNavigation = () =>
     {
         if(this.props.dashboard.lateralCollapsed)
         {
@@ -79,7 +72,7 @@ class TopNavigationComponent extends React.Component
         }
     }
 
-    handleSignOut()
+    handleSignOut = () =>
     {
         this.props.fetchSignOut();
     }

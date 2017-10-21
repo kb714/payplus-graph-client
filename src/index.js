@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import AppComponent from './app';
 // Reducers and Apollo
-import { ApolloProvider } from 'react-apollo';
-import { store, client } from './store';
+import {ApolloProvider} from 'react-apollo';
+import {store, client} from './store';
 import './index.css';
+import {LocaleProvider} from "antd";
+import esES from 'antd/lib/locale-provider/es_ES';
 
 
 class InitConfigComponent extends React.Component
@@ -13,9 +15,11 @@ class InitConfigComponent extends React.Component
     render()
     {
         return (
-            <ApolloProvider store={store} client={client}>
-                <AppComponent />
-            </ApolloProvider>
+            <LocaleProvider locale={esES}>
+                <ApolloProvider store={store} client={client}>
+                    <AppComponent />
+                </ApolloProvider>
+            </LocaleProvider>
         );
     }
 }
