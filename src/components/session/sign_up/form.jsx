@@ -20,13 +20,16 @@ class SignUpForm extends React.Component
     {
         if(nextProps.session.isSignUpError)
         {
+            // clear all alerts
             this.props.resetAlerts();
+
             const m_signUpData = nextProps.session.signUpData.data.errors;
 
             let m_errors = {};
 
-            for (let i in m_signUpData) {
-                m_errors = {...m_errors, [i]: {value: this.props.form.getFieldValue(i), errors: [m_signUpData[i][0]]}}
+            for (let i in m_signUpData) m_errors = {
+                ...m_errors,
+                [i]: {value: this.props.form.getFieldValue(i), errors: [m_signUpData[i][0]]}
             }
 
             console.log(m_errors);
@@ -144,7 +147,7 @@ class SignUpForm extends React.Component
     {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    }
+    };
 
     checkPassword = (rule, value, callback) =>
     {
@@ -157,7 +160,7 @@ class SignUpForm extends React.Component
         {
             callback();
         }
-    }
+    };
 
     checkConfirm = (rule, value, callback) =>
     {
@@ -167,7 +170,7 @@ class SignUpForm extends React.Component
             form.validateFields(['password_confirmation'], { force: true });
         }
         callback();
-    }
+    };
 
     handleSubmit = (e) =>
     {
@@ -179,7 +182,7 @@ class SignUpForm extends React.Component
                 this.props.fetchSignUp(values);
             }
         });
-    }
+    };
 }
 
 const WrappedSignUpForm = Form.create()(SignUpForm);

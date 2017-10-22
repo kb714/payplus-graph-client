@@ -1,9 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {gql, graphql, compose} from "react-apollo";
+import {graphql, compose} from "react-apollo";
 // UI
-import {Button, Col, Row} from "antd";
+import {Button, Card, Col, Popconfirm, Row} from "antd";
+// Graphql
+import {GET_SHOPS_QUERY} from "../../../../lib/graphql/queries";
 // Text
 import {PLAIN_TEXT} from "../../../../lib/plainText";
 // style
@@ -11,7 +13,7 @@ import "./index.css";
 // Dashboard Actions
 import {dashboardActions} from "../../../../actions/dashboard";
 // shop form
-import NewShopComponent from "./newShop";
+import WrapperNewShopComponent from "./newShop";
 
 class HomeSectionComponent extends React.Component
 {
@@ -38,7 +40,7 @@ class HomeSectionComponent extends React.Component
                                         shape="circle"
                                         type="danger"
                                         onClick={this.handleNewShopForm}/>
-                                <NewShopComponent />
+                                <WrapperNewShopComponent />
                             </div>
                         </Col>
                     </Row>
@@ -46,7 +48,48 @@ class HomeSectionComponent extends React.Component
             }
             else
             {
-                return(<h1>SHOW SHOPS</h1>);
+                const m_cardStyle = {
+                    marginBottom: "15px",
+                    textAlign: "center"
+                };
+
+                return(
+                    <div>
+                        <Row type="flex" justify="space-around">
+                            <Col span={24}>
+                                <div className="initial-shops">
+                                    <Button type="primary"
+                                            style={{ marginBottom: "30px" }}
+                                            onClick={this.handleNewShopForm}>
+                                        Crear nuevo comercio
+                                    </Button>
+                                    <WrapperNewShopComponent />
+                                </div>
+                            </Col>
+                        </Row>
+                        <div style={{ background: '#ECECEC', padding: '30px' }}>
+                            <Row gutter={16}>
+                                {this.props.data.shops.map((item, key) => {
+                                    const m_deletePop = (
+                                        <Popconfirm title="¿Seguro desea eliminar el comercio?">
+                                            <Button shape="circle" icon="delete" />
+                                        </Popconfirm>);
+                                    return (
+                                        <Col xs={24} sm={12} md={8} lg={6} key={key}>
+                                            <Card title={item.name}
+                                                  style={m_cardStyle}
+                                                  bordered={false}
+                                                  extra={m_deletePop}>
+                                                {item.description}
+                                            </Card>
+                                        </Col>
+                                    );
+                                })}
+
+                            </Row>
+                        </div>
+                    </div>
+                );
             }
         }
     }
@@ -64,13 +107,6 @@ class HomeSectionComponent extends React.Component
     }
 }
 
-const query = gql`
-          query getShops {
-            shops {
-                name
-            }
-          }
-        `;
 
 function mapStateToProps(state)
 {
@@ -79,4 +115,4 @@ function mapStateToProps(state)
     }
 }
 
-export default withRouter(compose(graphql(query), connect(mapStateToProps, {...dashboardActions}))(HomeSectionComponent));
+export default withRouter(compose(graphql(GET_SHOPS_QUERY), connect(mapStateToProps, {...dashboardActions}))(HomeSectionComponent));
