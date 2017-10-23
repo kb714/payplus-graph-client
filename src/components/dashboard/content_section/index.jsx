@@ -38,6 +38,7 @@ class ContentSectionComponent extends React.Component
                                     path={item.url}
                                     component={item.component} />
                             })};
+
                             <Redirect to="/404" />
                         </Switch>
                 }

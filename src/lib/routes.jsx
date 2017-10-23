@@ -2,8 +2,9 @@
 import DashboardComponent from "../components/dashboard";
 import RequireAuth from "../components/requireAuth";
 import SessionComponent from "../components/session";
-import SignInComponent from "../components/session/sign_in/index";
-import SignUpComponent from "../components/session/sign_up/index";
+import SignInComponent from "../components/session/sign_in";
+import SignUpComponent from "../components/session/sign_up";
+import ShopComponent from "../components/dashboard/content_section/shop";
 import NotFoundComponent from "../components/notFound";
 // Dashboard components
 import HomeSectionComponent from "../components/dashboard/content_section/home";
@@ -37,8 +38,8 @@ const MAIN = [
 const LATERAL = {
     NAVIGATION: [
         {
-            text: "Mis comercios",
-            icon: "shop",
+            text: "Inicio",
+            icon: "home",
             url: "/",
             component: HomeSectionComponent,
             exact: true
@@ -63,6 +64,14 @@ const LATERAL = {
             url: "/configuracion",
             component: ConfigurationSectionComponent,
             exact: true
+        },
+        {
+            text: "Tienda",
+            icon: "shop",
+            url: "/:id&:slug",
+            component: ShopComponent,
+            exact: true,
+            onlyRoute: true
         }
     ]
 };

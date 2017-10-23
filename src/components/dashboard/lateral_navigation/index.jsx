@@ -38,11 +38,18 @@ class LateralNavigationComponent extends React.Component
                       selectedKeys={[this.props.location.pathname]}
                       onClick={this.handleNavigation}>
                     {ROUTES.LATERAL.NAVIGATION.map((item) => {
-                        return (
-                            <Menu.Item key={item.url}>
-                                <Icon type={item.icon}/>
-                                <span>{item.text}</span>
-                            </Menu.Item>);
+                        if(!item.onlyRoute)
+                        {
+                            return (
+                                <Menu.Item key={item.url}>
+                                    <Icon type={item.icon}/>
+                                    <span>{item.text}</span>
+                                </Menu.Item>);
+                        }
+                        else
+                        {
+                            return (null);
+                        }
                     })}
                 </Menu>
             </div>,

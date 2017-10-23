@@ -6,6 +6,8 @@
   bottom: 0;
   background: #f7f7f7;
   transition: all linear 0.2s;
+  overflow-y: auto;
+  overflow-x: hidden;
   z-index: 5;
   .main-loadable {
     min-height: 100%;

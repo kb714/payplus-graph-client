@@ -8,6 +8,8 @@
   width: 80px;
   border-right: 1px solid #e0e0e0;
   transition: all linear 0.2s;
+  overflow-y: auto;
+  overflow-x: hidden;
   z-index: 10;
   .lateral-menu-open {
     background: #ffffff;

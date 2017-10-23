@@ -82,17 +82,20 @@ class NewShopComponent extends React.Component
                 }
                 catch(e)
                 {
-                    const m_errorsServer = JSON.parse(e.graphQLErrors[0].message);
-                    let m_errors = {};
+                    if(e.graphQLErrors)
+                    {
+                        const m_errorsServer = JSON.parse(e.graphQLErrors[0].message);
+                        let m_errors = {};
 
-                    for (let i in m_errorsServer) m_errors = {
-                        ...m_errors,
-                        [i]: {value: this.props.form.getFieldValue(i), errors: [m_errorsServer[i][0]]}
+                        for (let i in m_errorsServer) m_errors = {
+                            ...m_errors,
+                            [i]: {value: this.props.form.getFieldValue(i), errors: [m_errorsServer[i][0]]}
+                        }
+
+                        this.props.form.setFields({...m_errors});
+
+                        this.setState({ loading: false });
                     }
-
-                    this.props.form.setFields({...m_errors});
-
-                    this.setState({ loading: false });
                 }
             }
         );

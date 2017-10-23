@@ -15,3 +15,17 @@ export const CREATE_SHOP_MUTATION = gql`
         }
     }
 `;
+
+export const DELETE_SHOP_MUTATION = gql`
+    mutation deleteShopMutation($id: ID!)
+    {
+        deleteShop(
+            id: $id
+        ){
+            id,
+            name,
+            description,
+            url
+        }
+    }
+`;

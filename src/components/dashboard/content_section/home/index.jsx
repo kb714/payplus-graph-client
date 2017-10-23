@@ -3,9 +3,10 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {graphql, compose} from "react-apollo";
 // UI
-import {Button, Card, Col, Popconfirm, Row} from "antd";
+import {Avatar, Button, Card, Col, Popconfirm, Row} from "antd";
 // Graphql
 import {GET_SHOPS_QUERY} from "../../../../lib/graphql/queries";
+import {DELETE_SHOP_MUTATION} from "../../../../lib/graphql/mutations";
 // Text
 import {PLAIN_TEXT} from "../../../../lib/plainText";
 // style
@@ -50,7 +51,7 @@ class HomeSectionComponent extends React.Component
             {
                 const m_cardStyle = {
                     marginBottom: "15px",
-                    textAlign: "center"
+                    border: "1px solid #e0e0e0"
                 };
 
                 return(
@@ -59,7 +60,6 @@ class HomeSectionComponent extends React.Component
                             <Col span={24}>
                                 <div className="initial-shops">
                                     <Button type="primary"
-                                            style={{ marginBottom: "30px" }}
                                             onClick={this.handleNewShopForm}>
                                         Crear nuevo comercio
                                     </Button>
@@ -67,11 +67,14 @@ class HomeSectionComponent extends React.Component
                                 </div>
                             </Col>
                         </Row>
-                        <div style={{ background: '#ECECEC', padding: '30px' }}>
-                            <Row gutter={16}>
+                        <div style={{ padding: '0 30px' }}>
+                            <Row gutter={16} type="flex">
                                 {this.props.data.shops.map((item, key) => {
                                     const m_deletePop = (
-                                        <Popconfirm title="¿Seguro desea eliminar el comercio?">
+                                        <Popconfirm
+                                            title="¿Seguro desea eliminar el comercio?"
+                                            onConfirm={() => this.handleDeleteShop(item)}
+                                            shop={item}>
                                             <Button shape="circle" icon="delete" />
                                         </Popconfirm>);
                                     return (
@@ -80,7 +83,19 @@ class HomeSectionComponent extends React.Component
                                                   style={m_cardStyle}
                                                   bordered={false}
                                                   extra={m_deletePop}>
-                                                {item.description}
+                                                <div className="text-center">
+                                                    <Avatar shape="square" size="large" icon="shop" />
+                                                    <div className={"card-content"}>
+                                                        {item.description}
+                                                        <br />
+                                                        <b>{item.url}</b>
+                                                    </div>
+                                                    <Button type="danger"
+                                                            onClick={() => this.handleShopDetail(item)}
+                                                            ghost>
+                                                        Detalles
+                                                    </Button>
+                                                </div>
                                             </Card>
                                         </Col>
                                     );
@@ -104,6 +119,41 @@ class HomeSectionComponent extends React.Component
         {
             this.props.closeNewShopForm();
         }
+    };
+
+    handleDeleteShop = async(shop) =>
+    {
+        try
+        {
+            const {id} = shop;
+            await this.props.mutate({
+                variables: {
+                    id
+                }
+            });
+        }
+        catch(e)
+        {
+            if(e.graphQLErrors)
+            {
+                console.log(e.graphQLErrors[0].message);
+            }
+        }
+    };
+
+    handleShopDetail = (shop) =>
+    {
+        this.props.history.push(`${shop.id}&${this._slugify(shop.name)}`);
+    };
+
+    _slugify(text)
+    {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w]+/g, '')       // Remove all non-word chars
+            .replace(/-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
     }
 }
 
@@ -115,4 +165,8 @@ function mapStateToProps(state)
     }
 }
 
-export default withRouter(compose(graphql(GET_SHOPS_QUERY), connect(mapStateToProps, {...dashboardActions}))(HomeSectionComponent));
+export default withRouter(compose(
+    graphql(GET_SHOPS_QUERY),
+    graphql(DELETE_SHOP_MUTATION, {options: {refetchQueries: ['getShopQuery']}}),
+    connect(mapStateToProps, {...dashboardActions})
+)(HomeSectionComponent));
