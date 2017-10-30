@@ -8,7 +8,8 @@ export const GET_SHOPS_QUERY = gql`
             id
             name
             description
-            url
+            url,
+            image
         }
     }
 `;

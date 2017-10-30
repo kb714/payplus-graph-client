@@ -1,6 +1,5 @@
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
-import {ApolloClient} from "react-apollo";
-import {createNetworkInterface} from 'apollo-upload-client';
+import {ApolloClient, createNetworkInterface} from "react-apollo";
 import {Reducers} from "./reducers/index";
 import {routerMiddleware, routerReducer} from "react-router-redux";
 import {createBrowserHistory} from "history";
