@@ -68,9 +68,11 @@ class NewShopComponent extends React.Component
                 {
                     const m_mutationResponse = await this.props.mutate({
                         variables: {
-                            name,
-                            description,
-                            url
+                            shop: {
+                                name,
+                                description,
+                                url
+                            }
                         }
                     });
 
@@ -84,17 +86,18 @@ class NewShopComponent extends React.Component
                 {
                     if(e.graphQLErrors)
                     {
-                        const m_errorsServer = JSON.parse(e.graphQLErrors[0].message);
-                        let m_errors = {};
-
-                        for (let i in m_errorsServer) m_errors = {
-                            ...m_errors,
-                            [i]: {value: this.props.form.getFieldValue(i), errors: [m_errorsServer[i][0]]}
-                        }
-
-                        this.props.form.setFields({...m_errors});
-
-                        this.setState({ loading: false });
+                        console.log(e.graphQLErrors);
+                        // const m_errorsServer = JSON.parse(e.graphQLErrors[0].message);
+                        // let m_errors = {};
+                        //
+                        // for (let i in m_errorsServer) m_errors = {
+                        //     ...m_errors,
+                        //     [i]: {value: this.props.form.getFieldValue(i), errors: [m_errorsServer[i][0]]}
+                        // }
+                        //
+                        // this.props.form.setFields({...m_errors});
+                        //
+                        // this.setState({ loading: false });
                     }
                 }
             }
@@ -119,7 +122,6 @@ function mapStateToProps(state)
 }
 
 export default compose(
-    graphql(GET_SHOPS_QUERY),
     graphql(CREATE_SHOP_MUTATION, {options: {refetchQueries: ['getShopQuery']}}),
     connect(mapStateToProps, { ...dashboardActions })
 )(WrapperNewShopComponent);
