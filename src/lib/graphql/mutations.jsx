@@ -8,26 +8,29 @@ export const CREATE_SHOP_MUTATION = gql`
         ){
             id
             name
-            errors
+            description
+            url
+            image
         }
     }
 `;
 
 export const UPDATE_SHOP_MUTATION = gql`
-    mutation updateShopMutation($id: ID!, $name: String!, $description: String!, $url: String!, $image: String!)
+    mutation updateShopMutation($shopId: ID!, $name: String!, $description: String!, $url: String!, $file: File!)
     {
         updateShop(
-            id: $id,
-            name: $name,
+            shopId: $shopId
+            name: $name
             description: $description,
             url: $url,
-            image: $image
+            file: $file
         ){
-            id,
-            name,
-            description,
-            url,
+            id
+            name
+            description
+            url
             image
+            error
         }
     }
 `;

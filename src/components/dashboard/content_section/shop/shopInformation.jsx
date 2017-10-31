@@ -50,15 +50,14 @@ class ShopInformationComponent extends React.Component
     {
         console.log("CHANGE", event.target);
         console.log(event.target.files[0]);
-        this.getBase64(event.target.files[0], image => this.setState({image}));
         console.log(this.state.image);
         const m_mutationResponse = await this.props.mutate({
             variables: {
-                id: this.props.shop.id,
+                shopId: this.props.shop.id,
                 name: this.props.shop.name,
                 description: this.props.shop.description,
                 url: this.props.shop.url,
-                image: this.state.image
+                file: event.target.files[0]
             }
         });
 
