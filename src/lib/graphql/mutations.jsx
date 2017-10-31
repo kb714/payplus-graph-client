@@ -1,16 +1,14 @@
 import {gql} from "react-apollo";
 
 export const CREATE_SHOP_MUTATION = gql`
-    mutation createShopMutation($shop: CreateInput!) 
+    mutation createShopMutation($input: ShopInputType!) 
     {
         createShop(
-            input: $shop 
+            input: $input
         ){
-            id,
-            name,
-            description,
-            url,
-            image
+            id
+            name
+            errors
         }
     }
 `;
