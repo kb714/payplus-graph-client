@@ -84,7 +84,9 @@ class HomeSectionComponent extends React.Component
                                                   bordered={false}
                                                   extra={m_deletePop}>
                                                 <div className="text-center">
-                                                    <Avatar shape="square" size="large" icon="shop" />
+                                                    {item.image ?
+                                                        <img src={item.image}/> :
+                                                        <Avatar shape="square" size="large" icon="shop" />}
                                                     <div className={"card-content"}>
                                                         {item.description}
                                                         <br />

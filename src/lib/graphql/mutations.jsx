@@ -1,10 +1,13 @@
 import {gql} from "react-apollo";
 
 export const CREATE_SHOP_MUTATION = gql`
-    mutation createShopMutation($input: ShopInputType!) 
+    mutation createShopMutation($name: String!, $description: String!, $url: String!, $image: String) 
     {
         createShop(
-            input: $input
+            name: $name
+            description: $description
+            url: $url,
+            image: $image
         ){
             id
             name
@@ -16,14 +19,14 @@ export const CREATE_SHOP_MUTATION = gql`
 `;
 
 export const UPDATE_SHOP_MUTATION = gql`
-    mutation updateShopMutation($shopId: ID!, $name: String!, $description: String!, $url: String!, $file: File!)
+    mutation updateShopMutation($id: ID!, $name: String!, $description: String!, $url: String!, $image: String)
     {
         updateShop(
-            shopId: $shopId
+            id: $id
             name: $name
-            description: $description,
-            url: $url,
-            file: $file
+            description: $description
+            url: $url
+            image: $image
         ){
             id
             name

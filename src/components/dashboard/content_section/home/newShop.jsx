@@ -5,7 +5,7 @@ import {dashboardActions} from "../../../../actions/dashboard";
 // Graphql
 import {CREATE_SHOP_MUTATION} from "../../../../lib/graphql/mutations";
 // UI
-import {Form, Input, Modal} from "antd";
+import {Form, Input, Modal, Upload, message, Icon} from "antd";
 import {compose} from "redux";
 import {graphql} from "react-apollo";
 import {GET_SHOPS_QUERY} from "../../../../lib/graphql/queries";
@@ -20,6 +20,7 @@ class NewShopComponent extends React.Component
     render()
     {
         const { getFieldDecorator } = this.props.form;
+        const imageUrl = this.state.imageUrl;
         return(
             <Modal title="Nuevo comercio"
                    visible={this.props.dashboard.shops.newForm}
@@ -45,10 +46,43 @@ class NewShopComponent extends React.Component
                             rules: [{ required: true, message: 'Ingresa una URL válida' }]
                         })(<Input />)}
                     </FormItem>
+                    <FormItem label="Imagen de comercio">
+                        <Upload
+                            className="avatar-uploader"
+                            name="image"
+                            showUploadList={false}
+                            beforeUpload={this.beforeUpload}
+                        >
+                            {
+                                imageUrl ?
+                                    <img src={imageUrl} alt="" className="avatar" /> :
+                                    <Icon type="plus" className="avatar-uploader-trigger" />
+                            }
+                        </Upload>
+                    </FormItem>
                 </Form>
             </Modal>
         );
     }
+
+    beforeUpload = (file) =>
+    {
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        console.log(file.type);
+        if (!isJPG && !isPNG) {
+            message.error('Solo puedes asignar una imagen en formato JPG o PNG');
+        }
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+            message.error('Su imagen debe pesar menos de 2MB');
+        }
+        if(isJPG || isPNG && isLt2M)
+        {
+            getBase64(file, imageUrl => this.setState({ imageUrl }));
+        }
+        return false;
+    };
 
     handleForm = (e) =>
     {
@@ -68,11 +102,10 @@ class NewShopComponent extends React.Component
                 {
                     const m_mutationResponse = await this.props.mutate({
                         variables: {
-                            input: {
-                                name,
-                                description,
-                                url
-                            }
+                            name,
+                            description,
+                            url,
+                            image: this.state.imageUrl || null
                         }
                     });
 
@@ -113,6 +146,12 @@ class NewShopComponent extends React.Component
 }
 
 const WrapperNewShopComponent =  Form.create()(NewShopComponent);
+
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
 
 function mapStateToProps(state)
 {
