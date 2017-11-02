@@ -3,35 +3,63 @@ import {connect} from "react-redux";
 // Dashboard actions
 import {dashboardActions} from "../../../../actions/dashboard";
 // Graphql
-import {CREATE_SHOP_MUTATION} from "../../../../lib/graphql/mutations";
+import {UPDATE_SHOP_MUTATION} from "../../../../lib/graphql/mutations";
 // UI
 import {Form, Input, Modal, Upload, message, Icon, Select} from "antd";
 import {compose} from "redux";
 import {graphql} from "react-apollo";
-import {GET_SHOPS_QUERY} from "../../../../lib/graphql/queries";
 const FormItem = Form.Item;
 
-class NewShopComponent extends React.Component
+function toDataUrl(url, callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
+class EditShopComponent extends React.Component
 {
     state = {
         loading: false,
         sitePrefix: 'http://'
     };
 
+    componentDidMount(){
+        const {setFieldsValue} = this.props.form;
+        // can not load this date
+        setFieldsValue(
+                {
+                    name: this.props.shop.name,
+                    description: this.props.shop.description,
+                    url: this.props.shop.url.replace(/^https?\:\/\//i, "")
+                }
+            );
+        this.setState({sitePrefix: this.props.shop.url.match(/^https?\:\/\//i)});
+        //getBase64(this.props.shop.image, imageUrl => this.setState({ imageUrl }));
+        toDataUrl(this.props.shop.image, imageUrl => {this.setState({ imageUrl })});
+    }
+
     render()
     {
-        const { getFieldDecorator } = this.props.form;
+        const {getFieldDecorator} = this.props.form;
         const imageUrl = this.state.imageUrl;
         const sitePrefix = (
-            <Select onChange={this.selectSitePrefix} defaultValue="http://" style={{ width: 80 }}>
+            <Select onChange={this.selectSitePrefix} defaultValue={this.state.sitePrefix} style={{ width: 80 }}>
                 <Select.Option value="http://">http://</Select.Option>
                 <Select.Option value="https://">https://</Select.Option>
             </Select>
         );
 
         return(
-            <Modal title="Nuevo comercio"
-                   visible={this.props.dashboard.shops.newForm}
+            <Modal title="Editar comercio"
+                   visible={this.props.dashboard.shops.editForm}
                    onOk={this.handleForm}
                    confirmLoading={this.state.loading}
                    onCancel={this.closeForm}
@@ -112,6 +140,7 @@ class NewShopComponent extends React.Component
                 {
                     const m_mutationResponse = await this.props.mutate({
                         variables: {
+                            id: this.props.shop.id,
                             name,
                             description,
                             url: this.state.sitePrefix + url,
@@ -119,7 +148,7 @@ class NewShopComponent extends React.Component
                         }
                     });
 
-                    console.log(m_mutationResponse);
+                    message.success("Su comercio ha sido editado correctamente");
                     this.setState({ loading: false });
                     // close form
                     this.closeForm();
@@ -150,9 +179,9 @@ class NewShopComponent extends React.Component
     closeForm = () =>
     {
         //reset fields and call action to close form
-        this.setState({imageUrl: null});
-        this.props.form.resetFields();
-        this.props.closeNewShopForm();
+        // this.setState({imageUrl: null});
+        // this.props.form.resetFields();
+        this.props.closeEditShopForm();
     };
 
     selectSitePrefix = (value) =>
@@ -161,7 +190,7 @@ class NewShopComponent extends React.Component
     };
 }
 
-const WrapperNewShopComponent =  Form.create()(NewShopComponent);
+const WrapperEditShopComponent =  Form.create()(EditShopComponent);
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -177,6 +206,6 @@ function mapStateToProps(state)
 }
 
 export default compose(
-    graphql(CREATE_SHOP_MUTATION, {options: {refetchQueries: ['getShopQuery']}}),
+    graphql(UPDATE_SHOP_MUTATION, {options: {refetchQueries: ['getShopQuery']}}),
     connect(mapStateToProps, { ...dashboardActions })
-)(WrapperNewShopComponent);
+)(WrapperEditShopComponent);

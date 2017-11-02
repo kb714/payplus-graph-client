@@ -19,14 +19,16 @@ class ShopComponent extends React.Component
         console.log(this.props.match.params.id);
         return(
             <div>
+                <div className="toolbar">
+                    <Button type="primary"
+                            onClick={this.handleBackNavigation}>
+                        Volver
+                    </Button>
+                </div>
                 <Row type="flex" justify="space-around">
                     <Col span={24}>
                         <div className="show-shop">
-                            <Button type="primary"
-                                    onClick={this.handleBackNavigation}>
-                                Volver
-                            </Button>
-                            <ShopInformationComponent shop={this.props.data.shop} />
+                            <ShopInformationComponent data={this.props.data} />
                         </div>
                     </Col>
                 </Row>

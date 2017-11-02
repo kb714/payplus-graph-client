@@ -15,5 +15,7 @@ export const dashboardActions = {
     openLateralNavigation,
     closeLateralNavigation,
     openNewShopForm: SHOPS_ACTIONS.openNewShopForm,
-    closeNewShopForm: SHOPS_ACTIONS.closeNewShopForm
+    closeNewShopForm: SHOPS_ACTIONS.closeNewShopForm,
+    openEditShopForm: SHOPS_ACTIONS.openEditShopForm,
+    closeEditShopForm: SHOPS_ACTIONS.closeEditShopForm
 };

@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     contentLoading: false,
     shops: {
         newForm: false,
+        editForm: false,
         test: true
     }
 };
@@ -26,6 +27,12 @@ export default function(state = INITIAL_STATE, action)
         // ------------------------------------------------------------ //
         case dashboardTypes.SHOP_NEW_FORM_CLOSE:
             return { ...state, shops: { ...state.shops, newForm: action.payload } };
+        // ------------------------------------------------------------ //
+        case dashboardTypes.SHOP_EDIT_FORM_OPEN:
+            return { ...state, shops: { ...state.shops, editForm: action.payload } };
+        // ------------------------------------------------------------ //
+        case dashboardTypes.SHOP_EDIT_FORM_CLOSE:
+            return { ...state, shops: { ...state.shops, editForm: action.payload } };
         // ------------------------------------------------------------ //
         default:
             return state;

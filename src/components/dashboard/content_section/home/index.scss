@@ -20,3 +20,49 @@
     color: #757575;
   }
 }
+
+.card-image {
+  height: 200px;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  .inner {
+    padding: 0;
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    img {
+      max-width: 200px;
+      width: auto;
+      height: auto;
+      max-height: 200px;
+    }
+  }
+}
+
+.avatar-uploader,
+.avatar-uploader-trigger,
+.avatar {
+  max-width: 200px;
+  width: auto;
+  height: auto;
+  max-height: 200px;
+}
+.avatar-uploader {
+  display: block;
+  border: 1px dashed #d9d9d9;
+  cursor: pointer;
+  height: 200px;
+  text-align: center;
+}
+.avatar-uploader-trigger {
+  display: table-cell;
+  vertical-align: middle;
+  height: 200px;
+  width: 200px;
+  font-size: 28px;
+  color: #999;
+}

@@ -3,10 +3,9 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {graphql, compose} from "react-apollo";
 // UI
-import {Avatar, Button, Card, Col, Popconfirm, Row} from "antd";
+import {Button, Card, Col, Row} from "antd";
 // Graphql
 import {GET_SHOPS_QUERY} from "../../../../lib/graphql/queries";
-import {DELETE_SHOP_MUTATION} from "../../../../lib/graphql/mutations";
 // Text
 import {PLAIN_TEXT} from "../../../../lib/plainText";
 // style
@@ -58,7 +57,7 @@ class HomeSectionComponent extends React.Component
                     <div>
                         <Row type="flex" justify="space-around">
                             <Col span={24}>
-                                <div className="initial-shops">
+                                <div className="toolbar">
                                     <Button type="primary"
                                             onClick={this.handleNewShopForm}>
                                         Crear nuevo comercio
@@ -70,24 +69,18 @@ class HomeSectionComponent extends React.Component
                         <div style={{ padding: '0 30px' }}>
                             <Row gutter={16} type="flex">
                                 {this.props.data.shops.map((item, key) => {
-                                    const m_deletePop = (
-                                        <Popconfirm
-                                            title="¿Seguro desea eliminar el comercio?"
-                                            onConfirm={() => this.handleDeleteShop(item)}
-                                            shop={item}>
-                                            <Button shape="circle" icon="delete" />
-                                        </Popconfirm>);
                                     return (
                                         <Col xs={24} sm={12} md={8} lg={6} key={key}>
                                             <Card title={item.name}
                                                   style={m_cardStyle}
-                                                  bordered={false}
-                                                  extra={m_deletePop}>
+                                                  bordered={false}>
                                                 <div className="text-center">
-                                                    {item.image ?
-                                                        <img src={item.image}/> :
-                                                        <Avatar shape="square" size="large" icon="shop" />}
-                                                    <div className={"card-content"}>
+                                                    <div className="card-image">
+                                                        <div className="inner">
+                                                            <img src={item.image}/>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-content">
                                                         {item.description}
                                                         <br />
                                                         <b>{item.url}</b>
@@ -123,26 +116,6 @@ class HomeSectionComponent extends React.Component
         }
     };
 
-    handleDeleteShop = async(shop) =>
-    {
-        try
-        {
-            const {id} = shop;
-            await this.props.mutate({
-                variables: {
-                    id
-                }
-            });
-        }
-        catch(e)
-        {
-            if(e.graphQLErrors)
-            {
-                console.log(e.graphQLErrors[0].message);
-            }
-        }
-    };
-
     handleShopDetail = (shop) =>
     {
         this.props.history.push(`${shop.id}&${this._slugify(shop.name)}`);
@@ -169,6 +142,5 @@ function mapStateToProps(state)
 
 export default withRouter(compose(
     graphql(GET_SHOPS_QUERY),
-    graphql(DELETE_SHOP_MUTATION, {options: {refetchQueries: ['getShopQuery']}}),
     connect(mapStateToProps, {...dashboardActions})
 )(HomeSectionComponent));

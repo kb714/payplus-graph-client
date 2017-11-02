@@ -24,6 +24,7 @@ export const SHOW_SHOP_QUERY = gql`
             name
             description
             url
+            image
         }
     }
 `;

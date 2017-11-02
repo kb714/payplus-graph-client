@@ -33,7 +33,6 @@ export const UPDATE_SHOP_MUTATION = gql`
             description
             url
             image
-            error
         }
     }
 `;
